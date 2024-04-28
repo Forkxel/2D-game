@@ -1,3 +1,5 @@
+package window;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,7 +15,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Thread thread;
     private int playerX = 100;
     private int playerY = 100;
-    private int playerSpeed = 4;
+    private int playerSpeed = 2;
     private int fps = 60;
 
     public GamePanel() {
@@ -31,11 +33,21 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        while (thread != null) {
+        double drawInterval = 1000000000.0/fps;
+        double delta = 0.0;
+        long lastTime = System.nanoTime();
+        long currentTime;
 
-            update();
+        while (thread != null){
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime)/drawInterval;
+            lastTime = currentTime;
 
-            repaint();
+            if (delta >= 1){
+                update();
+                repaint();
+                delta--;
+            }
         }
     }
 
@@ -48,6 +60,11 @@ public class GamePanel extends JPanel implements Runnable{
             playerX -= playerSpeed;
         } else if (keyboard.pressedD){
             playerX += playerSpeed;
+        }
+        if (keyboard.pressedShift){
+            playerSpeed = 4;
+        } else {
+            playerSpeed = 2;
         }
     }
 
