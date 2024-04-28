@@ -1,9 +1,11 @@
+package window;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Keyboard implements KeyListener {
 
-    public boolean pressedW, pressedS, pressedA, pressedD;
+    public boolean pressedW, pressedS, pressedA, pressedD, pressedShift;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -26,6 +28,9 @@ public class Keyboard implements KeyListener {
         if (code == KeyEvent.VK_D){
             pressedD = true;
         }
+        if (code == KeyEvent.VK_SHIFT){
+            pressedShift = true;
+        }
     }
 
     @Override
@@ -43,6 +48,9 @@ public class Keyboard implements KeyListener {
         }
         if (code == KeyEvent.VK_D){
             pressedD = false;
+        }
+        if (code == KeyEvent.VK_SHIFT){
+            pressedShift = false;
         }
     }
 }
