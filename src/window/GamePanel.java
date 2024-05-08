@@ -9,19 +9,16 @@ public class GamePanel extends JPanel implements Runnable{
 
     private final int tileSize = 16;
     public final int scaledTile = tileSize * 3;
-    private final int columns = 16;
-    private final int rows = 12;
-    private final int screenWidth = scaledTile * columns; // 768 pixels
-    private final int screenHeight = scaledTile * rows; // 576 pixels
     private Keyboard keyboard = new Keyboard();
     private Thread thread;
-    private int playerX = 100;
-    private int playerY = 100;
-    private int playerSpeed = 2;
     private int fps = 60;
     Player player = new Player(this, keyboard);
 
     public GamePanel() {
+        int columns = 16;
+        int rows = 12;
+        int screenWidth = scaledTile * columns;
+        int screenHeight = scaledTile * rows;
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
