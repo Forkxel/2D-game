@@ -5,7 +5,6 @@ import window.Keyboard;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,29 +16,47 @@ public class Player extends Entity{
     public Player(GamePanel gamePanel, Keyboard keyboard) {
         this.gamePanel = gamePanel;
         this.keyboard = keyboard;
-        x = 100;
-        y = 100;
-        speed = 2;
-        direction = "down";
-        image();
+        this.x = 100;
+        this.y = 100;
+        this.speed = 2;
+        this.number = 1;
+        this.direction = "down";
+        try {
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/up_1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/up_2.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/down_1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/down_2.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/left_1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/left_2.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/right_1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/right_2.png")));
+            neutral = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/neutral.png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void update(){
-        if (keyboard.pressedW){
-            direction = "up";
-            y -= speed;
-        } else if (keyboard.pressedS){
-            direction = "down";
-            y += speed;
-        } else if (keyboard.pressedA){
-            direction = "left";
-            x -= speed;
-        } else if (keyboard.pressedD){
-            direction = "right";
-            x += speed;
+        if (keyboard.pressedA || keyboard.pressedD || keyboard.pressedS || keyboard.pressedW){
+            if (keyboard.pressedW){
+                direction = "up";
+                y -= speed;
+            } else if (keyboard.pressedS){
+                direction = "down";
+                y += speed;
+            } else if (keyboard.pressedA){
+                direction = "left";
+                x -= speed;
+            } else if (keyboard.pressedD){
+                direction = "right";
+                x += speed;
+            }
+        } else {
+            direction = "neutral";
         }
+
         if (keyboard.pressedShift){
-            speed = 4;
+            speed = 3;
         } else {
             speed = 2;
         }
@@ -53,68 +70,40 @@ public class Player extends Entity{
             counter = 0;
         }
     }
-    public void image(){
-        try {
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("up_1.png"));
-            System.out.println(getClass().getClassLoader().getResource("up_1.png"));
-            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("up_2.png"));
-            System.out.println(getClass().getClassLoader().getResource("up_2.png"));
-            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("down_1.png"));
-            System.out.println(getClass().getClassLoader().getResource("down_1.png"));
-            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("down_2.png"));
-            System.out.println(getClass().getClassLoader().getResource("down_2.png"));
-            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("left_1.png"));
-            System.out.println(getClass().getClassLoader().getResource("left_1.png"));
-            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("left_2.png"));
-            System.out.println(getClass().getClassLoader().getResource("left_2.png"));
-            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("right_1.png"));
-            System.out.println(getClass().getClassLoader().getResource("right_1.png"));
-            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("right_2.png"));
-            System.out.println(getClass().getClassLoader().getResource("right_2.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public void draw(Graphics2D g2D){
-        BufferedImage image = null;
         switch (direction){
             case "up":
                 if (number == 1){
-                    image = up1;
+                    g2D.drawImage(up1, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
                 } else if (number == 2) {
-                    image = up2;
+                    g2D.drawImage(up2, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
                 }
                 break;
             case "down":
                 if (number == 1){
-                    image = down1;
+                    g2D.drawImage(down1, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
                 } else if (number == 2) {
-                    image = down2;
+                    g2D.drawImage(down2, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
                 }
                 break;
             case "left":
                 if (number == 1){
-                    image = left1;
+                    g2D.drawImage(left1, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
                 } else if (number == 2) {
-                    image = left2;
+                    g2D.drawImage(left2, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
                 }
                 break;
             case "right":
                 if (number == 1){
-                    image = right1;
+                    g2D.drawImage(right1, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
                 } else if (number == 2) {
-                    image = right2;
+                    g2D.drawImage(right2, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
                 }
                 break;
+            case "neutral":
+                g2D.drawImage(neutral, x,y,gamePanel.scaledTile,gamePanel.scaledTile,null);
+                break;
         }
-        g2D.drawImage(image, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
-
-/*
-        g2D.setColor(Color.BLUE);
-        g2D.fillRect(x, y, gamePanel.scaledTile, gamePanel.scaledTile);
- */
-
-
     }
 }
