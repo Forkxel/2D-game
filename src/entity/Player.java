@@ -18,7 +18,7 @@ public class Player extends Entity{
         this.keyboard = keyboard;
         this.x = 100;
         this.y = 100;
-        this.speed = 2;
+        this.speed = 1;
         this.number = 1;
         this.direction = "down";
         try {
@@ -47,7 +47,7 @@ public class Player extends Entity{
             } else if (keyboard.pressedA){
                 direction = "left";
                 x -= speed;
-            } else if (keyboard.pressedD){
+            } else {
                 direction = "right";
                 x += speed;
             }
@@ -56,9 +56,9 @@ public class Player extends Entity{
         }
 
         if (keyboard.pressedShift){
-            speed = 3;
-        } else {
             speed = 2;
+        } else {
+            speed = 1;
         }
         counter++;
         if (counter > 15){

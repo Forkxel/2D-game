@@ -1,5 +1,6 @@
 package window;
 
+import Map.Map;
 import entity.Player;
 
 import javax.swing.*;
@@ -9,16 +10,17 @@ public class GamePanel extends JPanel implements Runnable{
 
     private final int tileSize = 16;
     public final int scaledTile = tileSize * 3;
-    private Keyboard keyboard = new Keyboard();
+    private final Keyboard keyboard = new Keyboard();
+    public final int columns = 16;
+    public final int rows = 12;
+    public final int screenWidth = scaledTile * columns;
+    public final int screenHeight = scaledTile * rows;
+
     private Thread thread;
-    private int fps = 60;
     Player player = new Player(this, keyboard);
+    Map map = new Map(this);
 
     public GamePanel() {
-        int columns = 16;
-        int rows = 12;
-        int screenWidth = scaledTile * columns;
-        int screenHeight = scaledTile * rows;
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -33,7 +35,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 1000000000.0/fps;
+        int fps = 60;
+        double drawInterval = 1000000000.0/ fps;
         double delta = 0.0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -58,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
+        map.draw(g2D);
         player.draw(g2D);
         g2D.dispose();
     }
