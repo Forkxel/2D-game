@@ -13,7 +13,7 @@ public class Map {
 
     private GamePanel gamePanel;
     private ArrayList<Tile> tiles;
-    private Tile[][] map = new Tile[16][12];
+    private int[][] map;
 
     public Map(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -21,7 +21,8 @@ public class Map {
         tiles.add(new Tile());
         tiles.add(new Tile());
         tiles.add(new Tile());
-//noumovina
+        map = new int[gamePanel.columns][gamePanel.rows];
+
         try {
             tiles.get(0).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png"));
             tiles.get(1).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/grass.png"));
@@ -29,6 +30,7 @@ public class Map {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        load();
     }
 
     public void draw(Graphics2D g2D){
@@ -37,28 +39,42 @@ public class Map {
         int x = 0;
         int y = 0;
 
-        BufferedReader reader;
-        try {
-            String line;
-            reader = new BufferedReader(new FileReader("game/map.txt"));
-            while((line = reader.readLine()) != null){
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-
-        while (columns < gamePanel.screenHeight && rows < gamePanel.screenWidth){
-            g2D.drawImage(tiles.get(1).image, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
+        while (columns < gamePanel.columns && rows < gamePanel.rows){
+            int a = map[columns][rows];
+            g2D.drawImage(tiles.get(a).image, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
             columns++;
             x += gamePanel.scaledTile;
-            if (columns == gamePanel.screenHeight){
+            if (columns == gamePanel.columns){
                 columns = 0;
                 rows++;
                 x = 0;
                 y += gamePanel.scaledTile;
             }
+        }
+    }
+
+    public void load (){
+        int columns = 0;
+        int rows = 0;
+        BufferedReader reader;
+        String line;
+
+        try {
+            reader = new BufferedReader(new FileReader("game/map.txt"));
+            while(columns < gamePanel.columns && rows < gamePanel.rows){
+                line = reader.readLine();
+                while (columns < gamePanel.columns){
+                    String[] numbers = line.split("\\s");
+                    map[columns][rows] = Integer.parseInt(numbers[columns]);
+                    columns++;
+                }
+                if (columns == gamePanel.columns){
+                    columns = 0;
+                    rows++;
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
