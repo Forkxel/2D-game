@@ -1,6 +1,6 @@
 package window;
 
-import Map.Map;
+import map.Map;
 import entity.Player;
 
 import javax.swing.*;
@@ -15,7 +15,6 @@ public class GamePanel extends JPanel implements Runnable{
     public final int rows = 12;
     public final int screenWidth = scaledTile * columns;
     public final int screenHeight = scaledTile * rows;
-
     private Thread thread;
     Player player = new Player(this, keyboard);
     Map map = new Map(this);
@@ -25,9 +24,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyboard);
         this.setFocusable(true);
-    }
-
-    public void startThread(){
         thread = new Thread(this);
         thread.start();
     }
@@ -50,14 +46,12 @@ public class GamePanel extends JPanel implements Runnable{
                 repaint();
                 delta--;
             }
-            /*
+
             try {
                 Thread.sleep((long) ((lastTime - System.nanoTime() + drawInterval) / 1000000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-             */
         }
     }
 
