@@ -21,12 +21,14 @@ public class Map {
         tiles.add(new Tile());
         tiles.add(new Tile());
         tiles.add(new Tile());
+        tiles.add(new Tile());
         map = new int[gamePanel.columns][gamePanel.rows];
 
         try {
             tiles.get(0).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png"));
             tiles.get(1).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/grass.png"));
             tiles.get(2).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/bricks.png"));
+            tiles.get(3).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/sand.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +55,7 @@ public class Map {
         }
     }
 
-    public void load (){
+    public void load(){
         int columns = 0;
         int rows = 0;
         BufferedReader reader;

@@ -6,7 +6,6 @@ import window.Keyboard;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Player extends Entity{
 
@@ -16,8 +15,8 @@ public class Player extends Entity{
     public Player(GamePanel gamePanel, Keyboard keyboard) {
         this.gamePanel = gamePanel;
         this.keyboard = keyboard;
-        this.x = 100;
-        this.y = 100;
+        this.x = 384;
+        this.y = 288;
         this.speed = 1;
         this.number = 1;
         this.direction = "down";
@@ -30,7 +29,7 @@ public class Player extends Entity{
             left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/left_2.png"));
             right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/right_1.png"));
             right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/right_2.png"));
-            neutral = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/neutral.png"));
+            neutral = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/neutral_down.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

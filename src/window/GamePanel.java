@@ -13,8 +13,8 @@ public class GamePanel extends JPanel implements Runnable{
     private final Keyboard keyboard = new Keyboard();
     public final int columns = 16;
     public final int rows = 12;
-    public final int screenWidth = scaledTile * columns;
-    public final int screenHeight = scaledTile * rows;
+    public final int screenWidth = scaledTile * columns; //768/2 = 384
+    public final int screenHeight = scaledTile * rows; //576/2 = 288
     private Thread thread;
     Player player = new Player(this, keyboard);
     Map map = new Map(this);

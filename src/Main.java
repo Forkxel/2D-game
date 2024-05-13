@@ -14,7 +14,7 @@ public class Main {
         frame.setResizable(false);
         BufferedImage image;
         try {
-            image = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("player/neutral.png"));
+            image = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("player/neutral_down.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
