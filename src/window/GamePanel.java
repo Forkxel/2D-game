@@ -1,7 +1,7 @@
 package window;
 
-import map.Map;
 import entity.Player;
+import map.Map;
 
 import javax.swing.*;
 import java.awt.*;
