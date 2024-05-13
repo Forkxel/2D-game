@@ -21,7 +21,7 @@ public class Map {
         tiles.add(new Tile());
         tiles.add(new Tile());
         tiles.add(new Tile());
-
+//noumovina
         try {
             tiles.get(0).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png"));
             tiles.get(1).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/grass.png"));
