@@ -22,15 +22,15 @@ public class Player extends Entity{
         this.number = 1;
         this.direction = "down";
         try {
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/up_1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/up_2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/down_1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/down_2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/left_1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/left_2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/right_1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/right_2.png")));
-            neutral = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/neutral.png")));
+            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/up_1.png"));
+            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/up_2.png"));
+            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/down_1.png"));
+            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/down_2.png"));
+            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/left_1.png"));
+            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/left_2.png"));
+            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/right_1.png"));
+            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/right_2.png"));
+            neutral = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/neutral.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

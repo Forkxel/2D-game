@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +14,7 @@ public class Main {
         frame.setResizable(false);
         BufferedImage image;
         try {
-            image = ImageIO.read(Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("player/neutral.png")));
+            image = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("player/neutral.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

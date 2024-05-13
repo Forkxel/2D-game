@@ -4,6 +4,8 @@ import window.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class Map {
 
     private GamePanel gamePanel;
     private ArrayList<Tile> tiles;
+    private Tile[][] map = new Tile[16][12];
 
     public Map(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -22,7 +25,7 @@ public class Map {
 
         try {
             tiles.get(0).image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/water.png")));
-            tiles.get(1).image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/grass.png")));
+            tiles.get(1).image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/grass1.png")));
             tiles.get(2).image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/bricks.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -34,6 +37,15 @@ public class Map {
         int rows = 0;
         int x = 0;
         int y = 0;
+        BufferedReader reader;
+        try {
+            String line;
+            reader = new BufferedReader(new FileReader("map.txt"));
+            while((line = reader.readLine()) != null){
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         while (columns < gamePanel.screenHeight && rows < gamePanel.screenWidth){
             g2D.drawImage(tiles.get(1).image, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);

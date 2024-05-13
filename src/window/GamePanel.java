@@ -22,7 +22,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyboard);
         this.setFocusable(true);
@@ -47,15 +46,19 @@ public class GamePanel extends JPanel implements Runnable{
             lastTime = currentTime;
 
             if (delta >= 1){
-                update();
+                player.update();
                 repaint();
                 delta--;
             }
-        }
-    }
+            /*
+            try {
+                Thread.sleep((long) ((lastTime - System.nanoTime() + drawInterval) / 1000000));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
-    public void update(){
-        player.update();
+             */
+        }
     }
 
     public void paintComponent(Graphics g){
