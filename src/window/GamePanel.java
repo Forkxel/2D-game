@@ -9,20 +9,25 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
 
     private final int tileSize = 16;
-    public final int scaledTile = tileSize * 3;
+    private final int scaledTile = tileSize * 3;
     private final Keyboard keyboard = new Keyboard();
-    public final int columns = 16;
-    public final int rows = 12;
-    public final int screenWidth = scaledTile * columns; //768/2 = 384
-    public final int screenHeight = scaledTile * rows; //576/2 = 288
-    private Thread thread;
-    Player player = new Player(this, keyboard);
-    Map map = new Map(this);
+    private final int columns = 16;
+    private final int rows = 12;
+    private final int screenWidth = scaledTile * columns;
+    private final int screenHeight = scaledTile * rows;
+    private final int mapColumns = 50;
+    private final int mapRows = 50;
+    private final int mapWidth = scaledTile * mapColumns;
+    private final int mapHeight = scaledTile * mapRows;
+    private final Thread thread;
+    private Player player = new Player(this, keyboard);
+    private final Map map = new Map(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyboard);
+        this.setBackground(Color.black);
         this.setFocusable(true);
         thread = new Thread(this);
         thread.start();
@@ -61,5 +66,37 @@ public class GamePanel extends JPanel implements Runnable{
         map.draw(g2D);
         player.draw(g2D);
         g2D.dispose();
+    }
+
+    public int getMapColumns() {
+        return mapColumns;
+    }
+
+    public int getMapRows() {
+        return mapRows;
+    }
+
+    public int getScaledTile() {
+        return scaledTile;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    public int getMapHeight() {
+        return mapHeight;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

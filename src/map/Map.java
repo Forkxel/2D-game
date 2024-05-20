@@ -4,16 +4,14 @@ import window.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Map {
 
-    private GamePanel gamePanel;
-    private ArrayList<Tile> tiles;
-    private int[][] map;
+    private final GamePanel gamePanel;
+    private final ArrayList<Tile> tiles;
+    private final int[][] map;
 
     public Map(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -22,35 +20,58 @@ public class Map {
         tiles.add(new Tile());
         tiles.add(new Tile());
         tiles.add(new Tile());
-        map = new int[gamePanel.columns][gamePanel.rows];
+        tiles.add(new Tile());
+        map = new int[gamePanel.getMapColumns()][gamePanel.getMapRows()];
 
         try {
-            tiles.get(0).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png"));
-            tiles.get(1).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/grass.png"));
-            tiles.get(2).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/bricks.png"));
-            tiles.get(3).image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/sand.png"));
+            tiles.get(0).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png")));
+            tiles.get(1).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/grass.png")));
+            tiles.get(2).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/bricks.png")));
+            tiles.get(3).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/sand.png")));
+            tiles.get(4).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         load();
     }
 
+/*
     public void draw(Graphics2D g2D){
         int columns = 0;
         int rows = 0;
-        int x = 0;
-        int y = 0;
 
-        while (columns < gamePanel.columns && rows < gamePanel.rows){
+        while (columns < gamePanel.getMapColumns() && rows < gamePanel.getMapRows()){
             int a = map[columns][rows];
-            g2D.drawImage(tiles.get(a).image, x, y, gamePanel.scaledTile, gamePanel.scaledTile, null);
+
+            int x = columns * gamePanel.getScaledTile();
+            int y = rows * gamePanel.getScaledTile();
+            int currentX = x - gamePanel.getPlayer().currentX + gamePanel.getPlayer().getX();
+            int currentY = y - gamePanel.getPlayer().currentY + gamePanel.getPlayer().getY();
+
+            g2D.drawImage(tiles.get(a).getImage(), currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
             columns++;
-            x += gamePanel.scaledTile;
-            if (columns == gamePanel.columns){
+
+            if (columns == gamePanel.getMapColumns()){
                 columns = 0;
                 rows++;
-                x = 0;
-                y += gamePanel.scaledTile;
+            }
+        }
+    }
+
+ */
+
+    public void draw(Graphics2D g2D) {
+        for (int row = 0; row < gamePanel.getMapRows(); row++) {
+            for (int col = 0; col < gamePanel.getMapColumns(); col++) {
+                int tileIndex = map[col][row];
+                int worldX = col * gamePanel.getScaledTile();
+                int worldY = row * gamePanel.getScaledTile();
+                int currentX = worldX - gamePanel.getPlayer().getX() + gamePanel.getPlayer().getCurrentX();
+                int currentY = worldY - gamePanel.getPlayer().getY() + gamePanel.getPlayer().getCurrentY();
+                if (worldX - gamePanel.getScaledTile() < gamePanel.getPlayer().getX() + gamePanel.getPlayer().getCurrentX() && worldY - gamePanel.getScaledTile() < gamePanel.getPlayer().getY() + gamePanel.getPlayer().getCurrentY() &&
+                    worldY + gamePanel.getScaledTile() > gamePanel.getPlayer().getY() - gamePanel.getPlayer().getCurrentY() && worldX + gamePanel.getScaledTile() > gamePanel.getPlayer().getX() - gamePanel.getPlayer().getCurrentX()) {
+                    g2D.drawImage(tiles.get(tileIndex).getImage(), currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                }
             }
         }
     }
@@ -58,22 +79,30 @@ public class Map {
     public void load(){
         int columns = 0;
         int rows = 0;
-        BufferedReader reader;
-        String line;
+        BufferedReader reader = null;
+        String line = "";
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("map.txt");
 
         try {
-            reader = new BufferedReader(new FileReader("game/map.txt"));
-            while(columns < gamePanel.columns && rows < gamePanel.rows){
-                line = reader.readLine();
-                while (columns < gamePanel.columns){
+            if (inputStream != null) {
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+            }
+            while(columns < gamePanel.getMapColumns() && rows < gamePanel.getMapRows()){
+                if (reader != null) {
+                    line = reader.readLine();
+                }
+                while (columns < gamePanel.getMapColumns()){
                     String[] numbers = line.split("\\s");
                     map[columns][rows] = Integer.parseInt(numbers[columns]);
                     columns++;
                 }
-                if (columns == gamePanel.columns){
+                if (columns == gamePanel.getMapColumns()){
                     columns = 0;
                     rows++;
                 }
+            }
+            if (reader != null) {
+                reader.close();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

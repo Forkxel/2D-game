@@ -20,6 +20,7 @@ public class Main {
         }
 
         frame.setIconImage(image);
+        frame.setTitle("Monsters everywhere");
 
         GamePanel gamePanel = new GamePanel();
         frame.add(gamePanel);
