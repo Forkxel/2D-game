@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
@@ -10,6 +11,8 @@ public abstract class Entity {
     protected String direction;
     protected int counter;
     protected int number;
+    protected Rectangle bounds;
+    protected boolean collision = false;
 
     public int getX() {
         return x;
@@ -17,5 +20,21 @@ public abstract class Entity {
 
     public int getY() {
         return y;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
     }
 }

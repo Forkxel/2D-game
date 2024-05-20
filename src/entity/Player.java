@@ -19,12 +19,7 @@ public class Player extends Entity{
         this.keyboard = keyboard;
         this.speed = 1;
         this.number = 1;
-        /*
-        this.x = gamePanel.getScaledTile() / 29;
-        this.y = gamePanel.getScaledTile() / 23;
-        this.currentX = gamePanel.screenWidth/2 - gamePanel.getScaledTile();
-        this.currentY = gamePanel.screenHeight/2 - gamePanel.getScaledTile();
-         */
+        this.bounds = new Rectangle(8,16,32,32);
         this.x = gamePanel.getMapWidth() / 2;
         this.y = gamePanel.getMapHeight() / 2;
         this.currentX = gamePanel.getScreenWidth() / 2 - gamePanel.getScaledTile() / 2;
@@ -49,16 +44,12 @@ public class Player extends Entity{
         if (keyboard.isPressedA() || keyboard.isPressedD() || keyboard.isPressedS() || keyboard.isPressedW()){
             if (keyboard.isPressedW()){
                 direction = "up";
-                y -= speed;
             } else if (keyboard.isPressedS()){
                 direction = "down";
-                y += speed;
             } else if (keyboard.isPressedA()){
                 direction = "left";
-                x -= speed;
             } else {
                 direction = "right";
-                x += speed;
             }
         } else {
             direction = "neutral";
@@ -69,6 +60,27 @@ public class Player extends Entity{
         } else {
             speed = 1;
         }
+
+        setCollision(false);
+        gamePanel.getCollision().collision(this);
+
+        if (!collision){
+            switch (direction){
+                case "up":
+                    y -= speed;
+                    break;
+                case "down":
+                    y += speed;
+                    break;
+                case "left":
+                    x -= speed;
+                    break;
+                case "right":
+                    x += speed;
+                    break;
+            }
+        }
+
         counter++;
         if (counter > 15){
             if (number == 1){

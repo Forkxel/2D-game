@@ -18,4 +18,8 @@ public class Tile {
     public boolean isCollision() {
         return collision;
     }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
 }

@@ -11,7 +11,7 @@ public class Map {
 
     private final GamePanel gamePanel;
     private final ArrayList<Tile> tiles;
-    private final int[][] map;
+    private int[][] map;
 
     public Map(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -25,40 +25,18 @@ public class Map {
 
         try {
             tiles.get(0).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png")));
+            tiles.get(0).setCollision(true);
             tiles.get(1).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/grass.png")));
             tiles.get(2).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/bricks.png")));
+            tiles.get(2).setCollision(true);
             tiles.get(3).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/sand.png")));
             tiles.get(4).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png")));
+            tiles.get(4).setCollision(true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         load();
     }
-
-/*
-    public void draw(Graphics2D g2D){
-        int columns = 0;
-        int rows = 0;
-
-        while (columns < gamePanel.getMapColumns() && rows < gamePanel.getMapRows()){
-            int a = map[columns][rows];
-
-            int x = columns * gamePanel.getScaledTile();
-            int y = rows * gamePanel.getScaledTile();
-            int currentX = x - gamePanel.getPlayer().currentX + gamePanel.getPlayer().getX();
-            int currentY = y - gamePanel.getPlayer().currentY + gamePanel.getPlayer().getY();
-
-            g2D.drawImage(tiles.get(a).getImage(), currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
-            columns++;
-
-            if (columns == gamePanel.getMapColumns()){
-                columns = 0;
-                rows++;
-            }
-        }
-    }
-
- */
 
     public void draw(Graphics2D g2D) {
         for (int row = 0; row < gamePanel.getMapRows(); row++) {
@@ -107,5 +85,13 @@ public class Map {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int[][] getMap() {
+        return map;
+    }
+
+    public ArrayList<Tile> getTiles() {
+        return tiles;
     }
 }

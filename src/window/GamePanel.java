@@ -1,6 +1,7 @@
 package window;
 
 import entity.Player;
+import map.Collision;
 import map.Map;
 
 import javax.swing.*;
@@ -20,7 +21,8 @@ public class GamePanel extends JPanel implements Runnable{
     private final int mapWidth = scaledTile * mapColumns;
     private final int mapHeight = scaledTile * mapRows;
     private final Thread thread;
-    private Player player = new Player(this, keyboard);
+    private final Player player = new Player(this, keyboard);
+    private final Collision collision = new Collision(this);
     private final Map map = new Map(this);
 
     public GamePanel() {
@@ -98,5 +100,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Collision getCollision() {
+        return collision;
+    }
+
+    public Map getMap() {
+        return map;
     }
 }
