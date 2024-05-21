@@ -21,17 +21,22 @@ public class Map {
         tiles.add(new Tile());
         tiles.add(new Tile());
         tiles.add(new Tile());
+        tiles.add(new Tile());
         map = new int[gamePanel.getMapColumns()][gamePanel.getMapRows()];
 
         try {
             tiles.get(0).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png")));
             tiles.get(0).setCollision(true);
             tiles.get(1).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/grass.png")));
+            tiles.get(1).setCollision(false);
             tiles.get(2).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/bricks.png")));
             tiles.get(2).setCollision(true);
             tiles.get(3).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/sand.png")));
+            tiles.get(3).setCollision(false);
             tiles.get(4).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png")));
             tiles.get(4).setCollision(true);
+            tiles.get(5).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/planks.png")));
+            tiles.get(5).setCollision(false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

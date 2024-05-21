@@ -12,7 +12,7 @@ public abstract class Entity {
     protected int counter;
     protected int number;
     protected Rectangle bounds;
-    protected boolean collision = false;
+    protected boolean collision;
 
     public int getX() {
         return x;
