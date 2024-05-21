@@ -11,7 +11,7 @@ public class Main {
         JFrame frame = new JFrame();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.setResizable(true);
         BufferedImage image;
         try {
             image = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("player/neutral_down.png"));
@@ -29,6 +29,7 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        gamePanel.setUpObjects();
         Thread thread = new Thread(gamePanel);
         thread.start();
     }

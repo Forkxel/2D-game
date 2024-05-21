@@ -3,9 +3,12 @@ package window;
 import entity.Player;
 import map.Collision;
 import map.Map;
+import map.ObjectPlacement;
+import object.MyObject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -24,6 +27,8 @@ public class GamePanel extends JPanel implements Runnable{
     private final Player player = new Player(this, keyboard);
     private final Collision collision = new Collision(this);
     private final Map map = new Map(this);
+    private ArrayList<MyObject> objects = new ArrayList<>();
+    private final ObjectPlacement objectPlacement = new ObjectPlacement(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -66,8 +71,15 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
         map.draw(g2D);
+        for (int i = 0; i < objects.size(); i++){
+            objects.get(i).draw(g2D, this);
+        }
         player.draw(g2D);
         g2D.dispose();
+    }
+
+    public void setUpObjects(){
+        setObjects(objectPlacement.addObjects());
     }
 
     public int getMapColumns() {
@@ -108,5 +120,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public Map getMap() {
         return map;
+    }
+
+    public void setObjects(ArrayList<MyObject> objects) {
+        this.objects = objects;
     }
 }
