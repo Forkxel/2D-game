@@ -1,4 +1,4 @@
-import window.GamePanel;
+import window.Screen;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +11,7 @@ public class Main {
         JFrame frame = new JFrame();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(true);
+        frame.setResizable(false);
         BufferedImage image;
         try {
             image = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("player/neutral_down.png"));
@@ -20,17 +20,16 @@ public class Main {
         }
 
         frame.setIconImage(image);
-        frame.setTitle("Monsters everywhere");
+        frame.setTitle("Very long title for game where you currently do nothing");
 
-        GamePanel gamePanel = new GamePanel();
-        frame.add(gamePanel);
+        Screen screen = new Screen();
+        frame.add(screen);
         frame.pack();
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        gamePanel.setUpObjects();
-        Thread thread = new Thread(gamePanel);
+        Thread thread = new Thread(screen);
         thread.start();
     }
 }

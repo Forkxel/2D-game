@@ -1,6 +1,6 @@
 package entity;
 
-import window.GamePanel;
+import window.Screen;
 import window.Keyboard;
 
 import javax.imageio.ImageIO;
@@ -9,21 +9,21 @@ import java.io.IOException;
 
 public class Player extends Entity{
 
-    private final GamePanel gamePanel;
+    private final Screen screen;
     private final Keyboard keyboard;
     private final int currentX;
     private final int currentY;
 
-    public Player(GamePanel gamePanel, Keyboard keyboard) {
-        this.gamePanel = gamePanel;
+    public Player(Screen screen, Keyboard keyboard) {
+        this.screen = screen;
         this.keyboard = keyboard;
-        this.speed = 1;
+        this.speed = 2;
         this.number = 1;
         this.bounds = new Rectangle(8,16,32,32);
-        this.x = gamePanel.getMapWidth() / 2;
-        this.y = gamePanel.getMapHeight() / 2;
-        this.currentX = gamePanel.getScreenWidth() / 2 - gamePanel.getScaledTile() / 2;
-        this.currentY = gamePanel.getScreenHeight() / 2 - gamePanel.getScaledTile() / 2;
+        this.x = screen.getMapWidth() / 2;
+        this.y = screen.getMapHeight() / 2;
+        this.currentX = screen.getScreenWidth() / 2 - screen.getScaledTile() / 2;
+        this.currentY = screen.getScreenHeight() / 2 - screen.getScaledTile() / 2;
         this.direction = "down";
         try {
             up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/up_1.png"));
@@ -56,13 +56,15 @@ public class Player extends Entity{
         }
 
         if (keyboard.isPressedShift()){
-            speed = 2;
+            speed = 3;
         } else {
-            speed = 1;
+            speed = 2;
         }
 
         setCollision(false);
-        gamePanel.getCollision().collision(this);
+        screen.getCollision().collision(this);
+        int index = screen.getCollision().collisionItem(this,true);
+        pickUp(index);
 
         if (!collision){
             switch (direction){
@@ -96,35 +98,41 @@ public class Player extends Entity{
         switch (direction){
             case "up":
                 if (number == 1){
-                    g2D.drawImage(up1, currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                    g2D.drawImage(up1, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 } else if (number == 2) {
-                    g2D.drawImage(up2, currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                    g2D.drawImage(up2, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 }
                 break;
             case "down":
                 if (number == 1){
-                    g2D.drawImage(down1, currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                    g2D.drawImage(down1, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 } else if (number == 2) {
-                    g2D.drawImage(down2, currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                    g2D.drawImage(down2, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 }
                 break;
             case "left":
                 if (number == 1){
-                    g2D.drawImage(left1, currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                    g2D.drawImage(left1, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 } else if (number == 2) {
-                    g2D.drawImage(left2, currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                    g2D.drawImage(left2, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 }
                 break;
             case "right":
                 if (number == 1){
-                    g2D.drawImage(right1, currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                    g2D.drawImage(right1, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 } else if (number == 2) {
-                    g2D.drawImage(right2, currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                    g2D.drawImage(right2, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 }
                 break;
             case "neutral":
-                g2D.drawImage(neutralDown, currentX,currentY,gamePanel.getScaledTile(),gamePanel.getScaledTile(),null);
+                g2D.drawImage(neutralDown, currentX,currentY, screen.getScaledTile(), screen.getScaledTile(),null);
                 break;
+        }
+    }
+
+    private void pickUp(int index) {
+        if (index >= 0 && index < screen.getItems().size()) {
+            screen.getItems().remove(index);
         }
     }
 

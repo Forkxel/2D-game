@@ -3,20 +3,20 @@ package window;
 import entity.Player;
 import map.Collision;
 import map.Map;
-import map.ObjectPlacement;
-import object.MyObject;
+import map.ItemPlacement;
+import object.Item;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GamePanel extends JPanel implements Runnable{
+public class Screen extends JPanel implements Runnable{
 
     private final int tileSize = 16;
     private final int scaledTile = tileSize * 3;
     private final Keyboard keyboard = new Keyboard();
-    private final int columns = 16;
-    private final int rows = 12;
+    private final int columns = 18;
+    private final int rows = 14;
     private final int screenWidth = scaledTile * columns;
     private final int screenHeight = scaledTile * rows;
     private final int mapColumns = 50;
@@ -27,15 +27,16 @@ public class GamePanel extends JPanel implements Runnable{
     private final Player player = new Player(this, keyboard);
     private final Collision collision = new Collision(this);
     private final Map map = new Map(this);
-    private ArrayList<MyObject> objects = new ArrayList<>();
-    private final ObjectPlacement objectPlacement = new ObjectPlacement(this);
+    private ArrayList<Item> items = new ArrayList<>();
 
-    public GamePanel() {
+    public Screen() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyboard);
         this.setBackground(Color.black);
         this.setFocusable(true);
+        ItemPlacement itemPlacement = new ItemPlacement(this);
+        setItems(itemPlacement.addObjects());
         thread = new Thread(this);
         thread.start();
     }
@@ -71,15 +72,11 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
         map.draw(g2D);
-        for (int i = 0; i < objects.size(); i++){
-            objects.get(i).draw(g2D, this);
+        for (Item object : items) {
+            object.draw(g2D, this);
         }
         player.draw(g2D);
         g2D.dispose();
-    }
-
-    public void setUpObjects(){
-        setObjects(objectPlacement.addObjects());
     }
 
     public int getMapColumns() {
@@ -122,7 +119,11 @@ public class GamePanel extends JPanel implements Runnable{
         return map;
     }
 
-    public void setObjects(ArrayList<MyObject> objects) {
-        this.objects = objects;
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
     }
 }

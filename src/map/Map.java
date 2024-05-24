@@ -1,6 +1,6 @@
 package map;
 
-import window.GamePanel;
+import window.Screen;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class Map {
 
-    private final GamePanel gamePanel;
+    private final Screen screen;
     private final ArrayList<Tile> tiles;
     private int[][] map;
 
-    public Map(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public Map(Screen screen) {
+        this.screen = screen;
         tiles = new ArrayList<>();
         tiles.add(new Tile());
         tiles.add(new Tile());
@@ -22,7 +22,7 @@ public class Map {
         tiles.add(new Tile());
         tiles.add(new Tile());
         tiles.add(new Tile());
-        map = new int[gamePanel.getMapColumns()][gamePanel.getMapRows()];
+        map = new int[screen.getMapColumns()][screen.getMapRows()];
 
         try {
             tiles.get(0).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png")));
@@ -44,16 +44,16 @@ public class Map {
     }
 
     public void draw(Graphics2D g2D) {
-        for (int row = 0; row < gamePanel.getMapRows(); row++) {
-            for (int col = 0; col < gamePanel.getMapColumns(); col++) {
+        for (int row = 0; row < screen.getMapRows(); row++) {
+            for (int col = 0; col < screen.getMapColumns(); col++) {
                 int tileIndex = map[col][row];
-                int worldX = col * gamePanel.getScaledTile();
-                int worldY = row * gamePanel.getScaledTile();
-                int currentX = worldX - gamePanel.getPlayer().getX() + gamePanel.getPlayer().getCurrentX();
-                int currentY = worldY - gamePanel.getPlayer().getY() + gamePanel.getPlayer().getCurrentY();
-                if (worldX - gamePanel.getScaledTile() < gamePanel.getPlayer().getX() + gamePanel.getPlayer().getCurrentX() && worldY - gamePanel.getScaledTile() < gamePanel.getPlayer().getY() + gamePanel.getPlayer().getCurrentY() &&
-                    worldY + gamePanel.getScaledTile() > gamePanel.getPlayer().getY() - gamePanel.getPlayer().getCurrentY() && worldX + gamePanel.getScaledTile() > gamePanel.getPlayer().getX() - gamePanel.getPlayer().getCurrentX()) {
-                    g2D.drawImage(tiles.get(tileIndex).getImage(), currentX, currentY, gamePanel.getScaledTile(), gamePanel.getScaledTile(), null);
+                int worldX = col * screen.getScaledTile();
+                int worldY = row * screen.getScaledTile();
+                int currentX = worldX - screen.getPlayer().getX() + screen.getPlayer().getCurrentX();
+                int currentY = worldY - screen.getPlayer().getY() + screen.getPlayer().getCurrentY();
+                if (worldX - screen.getScaledTile() < screen.getPlayer().getX() + screen.getPlayer().getCurrentX() && worldY - screen.getScaledTile() < screen.getPlayer().getY() + screen.getPlayer().getCurrentY() &&
+                    worldY + screen.getScaledTile() > screen.getPlayer().getY() - screen.getPlayer().getCurrentY() && worldX + screen.getScaledTile() > screen.getPlayer().getX() - screen.getPlayer().getCurrentX()) {
+                    g2D.drawImage(tiles.get(tileIndex).getImage(), currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
                 }
             }
         }
@@ -70,16 +70,16 @@ public class Map {
             if (inputStream != null) {
                 reader = new BufferedReader(new InputStreamReader(inputStream));
             }
-            while(columns < gamePanel.getMapColumns() && rows < gamePanel.getMapRows()){
+            while(columns < screen.getMapColumns() && rows < screen.getMapRows()){
                 if (reader != null) {
                     line = reader.readLine();
                 }
-                while (columns < gamePanel.getMapColumns()){
+                while (columns < screen.getMapColumns()){
                     String[] numbers = line.split("\\s");
                     map[columns][rows] = Integer.parseInt(numbers[columns]);
                     columns++;
                 }
-                if (columns == gamePanel.getMapColumns()){
+                if (columns == screen.getMapColumns()){
                     columns = 0;
                     rows++;
                 }

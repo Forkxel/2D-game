@@ -3,7 +3,7 @@ package object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class Chest extends MyObject{
+public class Chest extends Item {
 
     public Chest() {
         name = "chest";
