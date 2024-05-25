@@ -150,12 +150,11 @@ public class Collision {
                         index = i;
                     }
                 }
-
+                
                 entityBounds.x = entity.getX() + entity.getBounds().x;
                 entityBounds.y = entity.getY() + entity.getBounds().y;
             }
         }
-
         return index;
     }
 }

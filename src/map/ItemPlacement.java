@@ -41,15 +41,15 @@ public class ItemPlacement {
 
         items.add(new Doors());
         items.get(5).setX(43 * screen.getScaledTile());
-        items.get(5).setY(7 * screen.getScaledTile());
-
-        items.add(new Doors());
-        items.get(6).setX(43 * screen.getScaledTile());
-        items.get(6).setY(23 * screen.getScaledTile());
+        items.get(5).setY(23 * screen.getScaledTile());
 
         items.add(new Chest());
-        items.get(7).setX(24 * screen.getScaledTile());
-        items.get(7).setY(5 * screen.getScaledTile());
+        items.get(6).setX(24 * screen.getScaledTile());
+        items.get(6).setY(5 * screen.getScaledTile());
+
+        items.add(new Key());
+        items.get(7).setX(37 * screen.getScaledTile());
+        items.get(7).setY(46 * screen.getScaledTile());
 
         return items;
     }
