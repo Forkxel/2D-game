@@ -4,6 +4,7 @@ import window.Screen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public abstract class Item {
 
@@ -12,6 +13,7 @@ public abstract class Item {
     protected boolean collision;
     protected int x,y;
     protected Rectangle bounds = new Rectangle(0,0,48,48);
+    protected String color;
 
     public void draw(Graphics2D g2D, Screen screen) {
         int currentX = x - screen.getPlayer().getX() + screen.getPlayer().getCurrentX();
@@ -23,6 +25,16 @@ public abstract class Item {
             g2D.drawImage(image, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
         }
     }
+
+    public void setColorPicture() {
+        try {
+            setImageBasedOnColor();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected abstract void setImageBasedOnColor() throws IOException;
 
     public boolean isCollision() {
         return collision;
@@ -46,5 +58,9 @@ public abstract class Item {
 
     public int getY() {
         return y;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

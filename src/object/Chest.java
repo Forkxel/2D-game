@@ -14,4 +14,8 @@ public class Chest extends Item {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    protected void setImageBasedOnColor() {
+    }
 }
