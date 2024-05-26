@@ -1,5 +1,6 @@
 package map;
 
+import entity.Player;
 import window.Screen;
 
 import javax.imageio.ImageIO;
@@ -44,16 +45,33 @@ public class Map {
     }
 
     public void draw(Graphics2D g2D) {
+        Player player = screen.getPlayer();
+        int tileSize = screen.getScaledTile();
+        int playerX = player.getX();
+        int playerY = player.getY();
+        int playerScreenX = player.getCurrentX();
+        int playerScreenY = player.getCurrentY();
+
         for (int row = 0; row < screen.getMapRows(); row++) {
             for (int col = 0; col < screen.getMapColumns(); col++) {
                 int tileIndex = map[col][row];
-                int worldX = col * screen.getScaledTile();
-                int worldY = row * screen.getScaledTile();
-                int currentX = worldX - screen.getPlayer().getX() + screen.getPlayer().getCurrentX();
-                int currentY = worldY - screen.getPlayer().getY() + screen.getPlayer().getCurrentY();
-                if (worldX - screen.getScaledTile() < screen.getPlayer().getX() + screen.getPlayer().getCurrentX() && worldY - screen.getScaledTile() < screen.getPlayer().getY() + screen.getPlayer().getCurrentY() &&
-                    worldY + screen.getScaledTile() > screen.getPlayer().getY() - screen.getPlayer().getCurrentY() && worldX + screen.getScaledTile() > screen.getPlayer().getX() - screen.getPlayer().getCurrentX()) {
-                    g2D.drawImage(tiles.get(tileIndex).getImage(), currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
+                int worldX = col * tileSize;
+                int worldY = row * tileSize;
+                int relativeX = worldX - playerX + playerScreenX;
+                int relativeY = worldY - playerY + playerScreenY;
+
+                boolean isInViewHorizontally = false;
+                if (worldX + tileSize > playerX - playerScreenX && worldX - tileSize < playerX + playerScreenX){
+                    isInViewHorizontally = true;
+                }
+
+                boolean isInViewVertically = false;
+                if (worldY + tileSize > playerY - playerScreenY && worldY - tileSize < playerY + playerScreenY){
+                    isInViewVertically = true;
+                }
+
+                if (isInViewHorizontally && isInViewVertically) {
+                    g2D.drawImage(tiles.get(tileIndex).getImage(), relativeX, relativeY, tileSize, tileSize, null);
                 }
             }
         }

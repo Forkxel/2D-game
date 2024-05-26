@@ -1,5 +1,6 @@
 package object;
 
+import entity.Player;
 import window.Screen;
 
 import java.awt.*;
@@ -16,13 +17,27 @@ public abstract class Item {
     protected String color;
 
     public void draw(Graphics2D g2D, Screen screen) {
-        int currentX = x - screen.getPlayer().getX() + screen.getPlayer().getCurrentX();
-        int currentY = y - screen.getPlayer().getY() + screen.getPlayer().getCurrentY();
-        if (x - screen.getScaledTile() < screen.getPlayer().getX() + screen.getPlayer().getCurrentX() &&
-                y - screen.getScaledTile() < screen.getPlayer().getY() + screen.getPlayer().getCurrentY() &&
-                y + screen.getScaledTile() > screen.getPlayer().getY() - screen.getPlayer().getCurrentY() &&
-                x + screen.getScaledTile() > screen.getPlayer().getX() - screen.getPlayer().getCurrentX()) {
-            g2D.drawImage(image, currentX, currentY, screen.getScaledTile(), screen.getScaledTile(), null);
+        Player player = screen.getPlayer();
+        int tileSize = screen.getScaledTile();
+
+        int relativeX = x - player.getX() + player.getCurrentX();
+        int relativeY = y - player.getY() + player.getCurrentY();
+
+        int playerScreenX = player.getX() + player.getCurrentX();
+        int playerScreenY = player.getY() + player.getCurrentY();
+
+        boolean isInViewHorizontally = false;
+        if (x + tileSize > player.getX() - player.getCurrentX() && x - tileSize < playerScreenX){
+            isInViewHorizontally = true;
+        }
+
+        boolean isInViewVertically = false;
+        if (y + tileSize > player.getY() - player.getCurrentY() && y - tileSize < playerScreenY){
+            isInViewVertically = true;
+        }
+
+        if (isInViewHorizontally && isInViewVertically) {
+            g2D.drawImage(image, relativeX, relativeY, tileSize, tileSize, null);
         }
     }
 
@@ -62,5 +77,13 @@ public abstract class Item {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getName() {
+        return name;
     }
 }

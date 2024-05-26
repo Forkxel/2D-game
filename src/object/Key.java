@@ -28,8 +28,8 @@ public class Key extends Item {
                 case "green":
                     image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/key/green_key.png"));
                     break;
-                default:
-                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/key/yellow_key.png"));
+                case "yellow":
+                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/key/key.png"));
                     break;
             }
         } catch (IOException e) {

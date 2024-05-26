@@ -7,7 +7,7 @@ public class Doors extends Item {
 
     public Doors() {
         name = "doors";
-        collision = false;
+        collision = true;
         try {
             image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/doors/doors.png"));
         } catch (IOException e) {

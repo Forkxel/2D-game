@@ -28,7 +28,7 @@ public class ItemPlacement {
         items.add(new Key());
         items.get(1).setX(9 * screen.getScaledTile());
         items.get(1).setY(40 * screen.getScaledTile());
-        items.get(1).setColor("red");
+        items.get(1).setColor("yellow");
         items.get(1).setColorPicture();
 
         items.add(new Doors());
