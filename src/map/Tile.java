@@ -2,6 +2,9 @@ package map;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Class for single tile on the map
+ */
 public class Tile {
 
     private BufferedImage image;
