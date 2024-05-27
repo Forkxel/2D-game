@@ -9,6 +9,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class is used for player creation and interactions
+ */
 public class Player extends Entity{
 
     private final Screen screen;
@@ -18,6 +21,11 @@ public class Player extends Entity{
     private final ArrayList<Item> keys;
     private boolean win;
 
+    /**
+     * Constructor for Player class that is also loading images
+     * @param screen used for interacting with main game panel
+     * @param keyboard for Keyboard inputs
+     */
     public Player(Screen screen, Keyboard keyboard) {
         this.screen = screen;
         this.keyboard = keyboard;
@@ -45,6 +53,9 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method used for updating player position, collision and interacting with items
+     */
     public void update() {
         findDirection();
         changeSpeed();
@@ -60,6 +71,9 @@ public class Player extends Entity{
         flipAnimation();
     }
 
+    /**
+     * Method for finding in which direction is player going
+     */
     private void findDirection() {
         if (keyboard.isPressedW()) {
             direction = "up";
@@ -74,6 +88,9 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method for changing player speed
+     */
     private void changeSpeed() {
         if (keyboard.isPressedShift()) {
             speed = 3;
@@ -82,6 +99,9 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method for moving with player
+     */
     private void move() {
         switch (direction) {
             case "up":
@@ -99,6 +119,9 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method for changing walking image
+     */
     private void flipAnimation() {
         counter++;
         if (counter > 15){
@@ -111,6 +134,10 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method for drawing player
+     * @param g2D Graphics2D for drawing
+     */
     public void draw(Graphics2D g2D){
         switch (direction){
             case "up":
@@ -147,6 +174,10 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method for interacting with items
+     * @param index is index from arraylist of items to find with which item player is interacting
+     */
     private void interact(int index) {
         String name;
         if (index >= 0 && index < screen.getItems().size()) {
