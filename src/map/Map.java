@@ -12,7 +12,7 @@ public class Map {
 
     private final Screen screen;
     private final ArrayList<Tile> tiles;
-    private int[][] map;
+    private final int[][] map;
 
     public Map(Screen screen) {
         this.screen = screen;
