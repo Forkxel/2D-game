@@ -23,11 +23,12 @@ public class Screen extends JPanel implements Runnable{
     private final int mapRows = 50;
     private final int mapWidth = scaledTile * mapColumns;
     private final int mapHeight = scaledTile * mapRows;
-    private final Thread thread;
+    private Thread thread;
     private final Player player = new Player(this, keyboard);
     private final Collision collision = new Collision(this);
     private final Map map = new Map(this);
     private ArrayList<Item> items = new ArrayList<>();
+    private final WinningMessage message = new WinningMessage(this);
 
     public Screen() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -36,7 +37,7 @@ public class Screen extends JPanel implements Runnable{
         this.setBackground(Color.black);
         this.setFocusable(true);
         ItemPlacement itemPlacement = new ItemPlacement(this);
-        setItems(itemPlacement.addObjects());
+        setItems(itemPlacement.addItems());
         thread = new Thread(this);
         thread.start();
     }
@@ -72,10 +73,13 @@ public class Screen extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
         map.draw(g2D);
-        for (Item object : items) {
-            object.draw(g2D, this);
+        for (Item item : items) {
+            item.draw(g2D, this);
         }
         player.draw(g2D);
+        if (player.isWin()){
+            message.draw(g2D);
+        }
         g2D.dispose();
     }
 
@@ -125,5 +129,9 @@ public class Screen extends JPanel implements Runnable{
 
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public void setThread(Thread thread) {
+        this.thread = thread;
     }
 }
