@@ -8,12 +8,19 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class for creating a map
+ */
 public class Map {
 
     private final Screen screen;
     private final ArrayList<Tile> tiles;
     private final int[][] map;
 
+    /**
+     * Constructor for Map class that is also used to load images
+     * @param screen used for interacting with main game panel
+     */
     public Map(Screen screen) {
         this.screen = screen;
         tiles = new ArrayList<>();
@@ -44,6 +51,10 @@ public class Map {
         load();
     }
 
+    /**
+     * Method for drawing tiles on the map
+     * @param g2D Graphics2D for drawing
+     */
     public void draw(Graphics2D g2D) {
         Player player = screen.getPlayer();
         int tileSize = screen.getScaledTile();
@@ -77,28 +88,31 @@ public class Map {
         }
     }
 
-public void load() {
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("map.txt");
+    /**
+     * Method for loading the map
+     */
+    public void load() {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("map.txt");
 
-    if (inputStream != null) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            int rows = 0;
-            String line;
+        if (inputStream != null) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                int rows = 0;
+                String line;
 
-            while (rows < screen.getMapRows() && (line = reader.readLine()) != null) {
-                String[] numbers = line.split("\\s");
-                for (int i = 0; i < screen.getMapColumns(); i++) {
-                    if (i < numbers.length) {
-                        map[i][rows] = Integer.parseInt(numbers[i]);
+                while (rows < screen.getMapRows() && (line = reader.readLine()) != null) {
+                    String[] numbers = line.split("\\s");
+                    for (int i = 0; i < screen.getMapColumns(); i++) {
+                        if (i < numbers.length) {
+                            map[i][rows] = Integer.parseInt(numbers[i]);
+                        }
                     }
+                    rows++;
                 }
-                rows++;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
-}
 
     public int[][] getMap() {
         return map;
