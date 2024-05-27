@@ -8,6 +8,9 @@ import window.Screen;
 
 import java.util.ArrayList;
 
+/**
+ * Class for placing the items on map
+ */
 public class ItemPlacement {
 
     Screen screen;
@@ -17,6 +20,10 @@ public class ItemPlacement {
         this.screen = panel;
     }
 
+    /**
+     * Method that is used to create ArrayList of items
+     * @return ArrayList of items
+     */
     public ArrayList<Item> addItems(){
         items = new ArrayList<>();
         
