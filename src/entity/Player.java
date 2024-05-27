@@ -16,13 +16,14 @@ public class Player extends Entity{
     private final int currentX;
     private final int currentY;
     private final ArrayList<Item> keys;
+    private boolean win;
 
     public Player(Screen screen, Keyboard keyboard) {
         this.screen = screen;
         this.keyboard = keyboard;
         this.speed = 2;
         this.number = 1;
-        this.bounds = new Rectangle(8,16,28,16);
+        this.bounds = new Rectangle(8,25,28,16);
         this.x = screen.getMapWidth() / 2;
         this.y = screen.getMapHeight() / 2;
         this.currentX = screen.getScreenWidth() / 2 - screen.getScaledTile() / 2;
@@ -150,23 +151,30 @@ public class Player extends Entity{
         String name;
         if (index >= 0 && index < screen.getItems().size()) {
             name = screen.getItems().get(index).getName();
+            Item currentItem = screen.getItems().get(index);
 
-            switch (name){
+            switch (name) {
                 case "key":
-                    keys.add(screen.getItems().get(index));
+                    keys.add(currentItem);
                     screen.getItems().remove(index);
                     break;
                 case "doors":
+                    boolean doorOpened = false;
                     for (Item key : keys) {
-                        if (key.getColor().equals(screen.getItems().get(index).getColor())) {
-                            screen.getItems().remove(index);
+                        if (key.getColor().equals(currentItem.getColor())) {
+                            doorOpened = true;
+                            break;
                         }
+                    }
+                    if (doorOpened) {
+                        screen.getItems().remove(index);
                     }
                     break;
                 case "chest":
                     for (Item key : keys) {
                         if (key.getColor().equals("yellow")) {
-                            screen.getItems().remove(index);
+                            win = true;
+                            break;
                         }
                     }
                     break;
@@ -180,5 +188,9 @@ public class Player extends Entity{
 
     public int getCurrentX() {
         return currentX;
+    }
+
+    public boolean isWin() {
+        return win;
     }
 }
