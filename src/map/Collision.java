@@ -6,6 +6,9 @@ import window.Screen;
 
 import java.awt.*;
 
+/**
+ * Class for finding collision
+ */
 public class Collision {
 
     private final Screen screen;
@@ -14,6 +17,10 @@ public class Collision {
         this.screen = screen;
     }
 
+    /**
+     * Method for finding if player or monster is colliding with non-walkable tiles
+     * @param entity player or monster
+     */
     public void collision(Entity entity) {
         int leftX = entity.getX() + entity.getBounds().x;
         int rightX = entity.getX() + entity.getBounds().x + entity.getBounds().width;
@@ -107,6 +114,12 @@ public class Collision {
         }
     }
 
+    /**
+     * Method for finding if player or monster is colliding with item
+     * @param entity player or monster
+     * @param player true if entity colliding with item is player
+     * @return index of item that is interacting with player
+     */
     public int collisionItem(Entity entity, boolean player) {
         int index = -1;
 
