@@ -3,6 +3,9 @@ package object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
+/**
+ * Class for chest object
+ */
 public class Chest extends Item {
 
     public Chest() {
