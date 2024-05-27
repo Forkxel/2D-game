@@ -110,22 +110,12 @@ public class Collision {
     public int collisionItem(Entity entity, boolean player) {
         int index = -1;
 
-        Rectangle entityBounds = new Rectangle(
-                entity.getX() + entity.getBounds().x,
-                entity.getY() + entity.getBounds().y,
-                entity.getBounds().width,
-                entity.getBounds().height
-        );
+        Rectangle entityBounds = new Rectangle(entity.getX() + entity.getBounds().x, entity.getY() + entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
 
         for (int i = 0; i < screen.getItems().size(); i++) {
             Item item = screen.getItems().get(i);
             if (item != null) {
-                Rectangle objBounds = new Rectangle(
-                        item.getX() + item.getBounds().x,
-                        item.getY() + item.getBounds().y,
-                        item.getBounds().width,
-                        item.getBounds().height
-                );
+                Rectangle objBounds = new Rectangle(item.getX() + item.getBounds().x, item.getY() + item.getBounds().y, item.getBounds().width, item.getBounds().height);
 
                 switch (entity.getDirection()) {
                     case "up":

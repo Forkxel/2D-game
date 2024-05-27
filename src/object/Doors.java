@@ -8,11 +8,6 @@ public class Doors extends Item {
     public Doors() {
         name = "doors";
         collision = true;
-        try {
-            image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/doors/doors.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -27,9 +22,6 @@ public class Doors extends Item {
                     break;
                 case "green":
                     image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/doors/green_doors.png"));
-                    break;
-                default:
-                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/doors/yellow_doors.png"));
                     break;
             }
         } catch (IOException e) {

@@ -77,38 +77,28 @@ public class Map {
         }
     }
 
-    public void load(){
-        int columns = 0;
-        int rows = 0;
-        BufferedReader reader = null;
-        String line = "";
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("map.txt");
+public void load() {
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("map.txt");
 
-        try {
-            if (inputStream != null) {
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-            }
-            while(columns < screen.getMapColumns() && rows < screen.getMapRows()){
-                if (reader != null) {
-                    line = reader.readLine();
+    if (inputStream != null) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            int rows = 0;
+            String line;
+
+            while (rows < screen.getMapRows() && (line = reader.readLine()) != null) {
+                String[] numbers = line.split("\\s");
+                for (int i = 0; i < screen.getMapColumns(); i++) {
+                    if (i < numbers.length) {
+                        map[i][rows] = Integer.parseInt(numbers[i]);
+                    }
                 }
-                while (columns < screen.getMapColumns()){
-                    String[] numbers = line.split("\\s");
-                    map[columns][rows] = Integer.parseInt(numbers[columns]);
-                    columns++;
-                }
-                if (columns == screen.getMapColumns()){
-                    columns = 0;
-                    rows++;
-                }
-            }
-            if (reader != null) {
-                reader.close();
+                rows++;
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+}
 
     public int[][] getMap() {
         return map;

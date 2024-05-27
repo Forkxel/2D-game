@@ -22,7 +22,7 @@ public class Player extends Entity{
         this.keyboard = keyboard;
         this.speed = 2;
         this.number = 1;
-        this.bounds = new Rectangle(8,16,32,32);
+        this.bounds = new Rectangle(8,16,28,16);
         this.x = screen.getMapWidth() / 2;
         this.y = screen.getMapHeight() / 2;
         this.currentX = screen.getScreenWidth() / 2 - screen.getScaledTile() / 2;
@@ -50,8 +50,8 @@ public class Player extends Entity{
 
         setCollision(false);
         screen.getCollision().collision(this);
-        int itemIndex = screen.getCollision().collisionItem(this, true);
-        interact(itemIndex);
+        int index = screen.getCollision().collisionItem(this, true);
+        interact(index);
 
         if (!collision) {
             move();

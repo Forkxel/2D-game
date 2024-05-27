@@ -27,11 +27,12 @@ public abstract class Item {
         int playerScreenY = player.getY() + player.getCurrentY();
 
         boolean isInViewHorizontally = false;
+        boolean isInViewVertically = false;
+
         if (x + tileSize > player.getX() - player.getCurrentX() && x - tileSize < playerScreenX){
             isInViewHorizontally = true;
         }
 
-        boolean isInViewVertically = false;
         if (y + tileSize > player.getY() - player.getCurrentY() && y - tileSize < playerScreenY){
             isInViewVertically = true;
         }

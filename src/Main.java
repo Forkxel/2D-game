@@ -20,7 +20,7 @@ public class Main {
         }
 
         frame.setIconImage(image);
-        frame.setTitle("Very long title for game where you currently do nothing");
+        frame.setTitle("Treasure hunt");
 
         Screen screen = new Screen();
         frame.add(screen);
