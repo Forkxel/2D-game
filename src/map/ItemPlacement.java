@@ -1,9 +1,6 @@
 package map;
 
-import object.Chest;
-import object.Doors;
-import object.Key;
-import object.Item;
+import object.*;
 import window.Screen;
 
 import java.util.ArrayList;
@@ -79,6 +76,11 @@ public class ItemPlacement {
         greenKey.setColor("green");
         greenKey.setColorPicture();
         items.add(greenKey);
+
+        Potion potion = new Potion();
+        potion.setX(4 * screen.getScaledTile());
+        potion.setY(3 * screen.getScaledTile());
+        items.add(potion);
 
         return items;
     }

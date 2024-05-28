@@ -217,6 +217,11 @@ public class Player extends Entity{
                         }
                     }
                     break;
+                case "potion":
+                    life = maxLife;
+                    hit = 0;
+                    screen.getItems().remove(index);
+                    break;
             }
         }
     }
