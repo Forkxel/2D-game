@@ -71,12 +71,13 @@ public class Map {
                 int relativeX = worldX - playerX + playerScreenX;
                 int relativeY = worldY - playerY + playerScreenY;
 
+                boolean isInViewVertically = false;
                 boolean isInViewHorizontally = false;
+
                 if (worldX + tileSize > playerX - playerScreenX && worldX - tileSize < playerX + playerScreenX){
                     isInViewHorizontally = true;
                 }
 
-                boolean isInViewVertically = false;
                 if (worldY + tileSize > playerY - playerScreenY && worldY - tileSize < playerY + playerScreenY){
                     isInViewVertically = true;
                 }

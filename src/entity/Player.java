@@ -56,6 +56,7 @@ public class Player extends Entity{
     /**
      * Method used for updating player position, collision and interacting with items
      */
+    @Override
     public void update() {
         findDirection();
         changeSpeed();
@@ -102,7 +103,8 @@ public class Player extends Entity{
     /**
      * Method for changing walking image
      */
-    private void flipAnimation() {
+    @Override
+    protected void flipAnimation() {
         counter++;
         if (counter > 15){
             if (number == 1){
@@ -190,6 +192,24 @@ public class Player extends Entity{
                     }
                     break;
             }
+        }
+    }
+
+    @Override
+    protected void move() {
+        switch (direction) {
+            case "up":
+                y -= speed;
+                break;
+            case "down":
+                y += speed;
+                break;
+            case "left":
+                x -= speed;
+                break;
+            case "right":
+                x += speed;
+                break;
         }
     }
 

@@ -1,5 +1,7 @@
 package window;
 
+import entity.Monster;
+import entity.MonsterPlacement;
 import entity.Player;
 import map.Collision;
 import map.Map;
@@ -29,6 +31,7 @@ public class Screen extends JPanel implements Runnable{
     private final Map map = new Map(this);
     private ArrayList<Item> items = new ArrayList<>();
     private final WinningMessage message = new WinningMessage(this);
+    private ArrayList<Monster> monsters = new ArrayList<>();
 
     public Screen() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -37,7 +40,9 @@ public class Screen extends JPanel implements Runnable{
         this.setBackground(Color.black);
         this.setFocusable(true);
         ItemPlacement itemPlacement = new ItemPlacement(this);
+        MonsterPlacement monsterPlacement = new MonsterPlacement(this);
         setItems(itemPlacement.addItems());
+        setMonsters(monsterPlacement.addMonsters());
         thread = new Thread(this);
         thread.start();
     }
@@ -57,6 +62,9 @@ public class Screen extends JPanel implements Runnable{
 
             if (delta >= 1){
                 player.update();
+                for (Monster monster : monsters) {
+                    monster.update();
+                }
                 repaint();
                 delta--;
             }
@@ -77,6 +85,9 @@ public class Screen extends JPanel implements Runnable{
             item.draw(g2D, this);
         }
         player.draw(g2D);
+        for (Monster monster : monsters) {
+            monster.draw(g2D, this);
+        }
         if (player.isWin()){
             message.draw(g2D);
         }
@@ -133,5 +144,9 @@ public class Screen extends JPanel implements Runnable{
 
     public void setThread(Thread thread) {
         this.thread = thread;
+    }
+
+    public void setMonsters(ArrayList<Monster> monsters) {
+        this.monsters = monsters;
     }
 }

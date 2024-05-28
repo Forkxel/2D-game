@@ -16,22 +16,9 @@ public abstract class Entity {
     protected int maxLife;
     protected int life;
 
-    protected void move(){
-        switch (direction) {
-            case "up":
-                y -= speed;
-                break;
-            case "down":
-                y += speed;
-                break;
-            case "left":
-                x -= speed;
-                break;
-            case "right":
-                x += speed;
-                break;
-        }
-    }
+    protected abstract void move();
+    protected abstract void flipAnimation();
+    protected abstract void update();
 
     public int getX() {
         return x;

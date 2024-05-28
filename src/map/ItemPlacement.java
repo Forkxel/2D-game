@@ -13,8 +13,7 @@ import java.util.ArrayList;
  */
 public class ItemPlacement {
 
-    Screen screen;
-    ArrayList<Item> items;
+    private final Screen screen;
 
     public ItemPlacement(Screen panel) {
         this.screen = panel;
@@ -25,7 +24,7 @@ public class ItemPlacement {
      * @return ArrayList of items
      */
     public ArrayList<Item> addItems(){
-        items = new ArrayList<>();
+        ArrayList<Item> items = new ArrayList<>();
         
         Key key = new Key();
         key.setX(36 * screen.getScaledTile());
