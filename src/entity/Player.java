@@ -100,26 +100,6 @@ public class Player extends Entity{
     }
 
     /**
-     * Method for moving with player
-     */
-    private void move() {
-        switch (direction) {
-            case "up":
-                y -= speed;
-                break;
-            case "down":
-                y += speed;
-                break;
-            case "left":
-                x -= speed;
-                break;
-            case "right":
-                x += speed;
-                break;
-        }
-    }
-
-    /**
      * Method for changing walking image
      */
     private void flipAnimation() {

@@ -13,6 +13,25 @@ public abstract class Entity {
     protected int number;
     protected Rectangle bounds;
     protected boolean collision;
+    protected int maxLife;
+    protected int life;
+
+    protected void move(){
+        switch (direction) {
+            case "up":
+                y -= speed;
+                break;
+            case "down":
+                y += speed;
+                break;
+            case "left":
+                x -= speed;
+                break;
+            case "right":
+                x += speed;
+                break;
+        }
+    }
 
     public int getX() {
         return x;
@@ -36,5 +55,13 @@ public abstract class Entity {
 
     public void setCollision(boolean collision) {
         this.collision = collision;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
