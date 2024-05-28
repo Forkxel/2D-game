@@ -164,9 +164,9 @@ public class Collision {
         return index;
     }
 
-    public int collisionMonster(Entity entity, ArrayList<Monster> monsters) {
+    public boolean collisionMonster(Entity entity, ArrayList<Monster> monsters) {
         Rectangle entityBounds = new Rectangle(entity.getX() + entity.getBounds().x, entity.getY() + entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
-        int index = -1;
+        boolean hit = false;
 
         for (Monster monster : monsters) {
             Rectangle monsterBounds = new Rectangle(monster.getX() + monster.getBounds().x, monster.getY() + monster.getBounds().y, monster.getBounds().width, monster.getBounds().height);
@@ -190,15 +190,15 @@ public class Collision {
             if (nextEntityBounds.intersects(monsterBounds)) {
                 if (entity != monster) {
                     entity.setCollision(true);
-                    index = monsters.indexOf(monster);
+                    hit = true;
                 }
                 break;
             }
         }
-        return index;
+        return hit;
     }
 
-    public void collisionPlayer(Entity entity) {
+    public boolean collisionPlayer(Entity entity) {
         Rectangle entityBounds = new Rectangle(entity.getX() + entity.getBounds().x, entity.getY() + entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
         Player player = screen.getPlayer();
         int playerX = player.getX() + player.getBounds().x;
@@ -207,6 +207,7 @@ public class Collision {
         int playerHeight = player.getBounds().height;
         Rectangle playerBounds = new Rectangle(playerX, playerY, playerWidth, playerHeight);
         Rectangle nextEntityBounds = new Rectangle(entityBounds);
+        boolean hit = false;
 
         switch (entity.getDirection()) {
             case "up":
@@ -225,6 +226,8 @@ public class Collision {
 
         if (nextEntityBounds.intersects(playerBounds)) {
             entity.setCollision(true);
+            hit = true;
         }
+        return hit;
     }
 }

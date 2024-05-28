@@ -71,10 +71,10 @@ public class Player extends Entity{
 
         setCollision(false);
         screen.getCollision().collision(this);
-        int indexOfMonster = screen.getCollision().collisionMonster(this, screen.getMonsters());
+        boolean damage = screen.getCollision().collisionMonster(this, screen.getMonsters());
         int index = screen.getCollision().collisionItem(this, true);
         interact(index);
-        damage(indexOfMonster);
+        damage(damage);
 
         if (!collision) {
             move();
@@ -221,8 +221,12 @@ public class Player extends Entity{
         }
     }
 
-    public void damage(int index){
-        if (index >= 0 && index < screen.getItems().size()){
+    public void damage(boolean damage){
+        for (int i = 0; i < screen.getMonsters().size(); i++) {
+            Monster monster = screen.getMonsters().get(i);
+            monster.damage(screen.getCollision().collisionPlayer(monster),this);
+        }
+        if (damage){
             if (!invincible){
                 life--;
                 hit++;
@@ -276,5 +280,21 @@ public class Player extends Entity{
 
     public boolean isLost() {
         return lost;
+    }
+
+    public void setHit(int hit) {
+        this.hit = hit;
+    }
+
+    public int getHit() {
+        return hit;
+    }
+
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
+    }
+
+    public boolean isInvincible() {
+        return invincible;
     }
 }

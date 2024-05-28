@@ -16,7 +16,6 @@ public class Monster extends Entity{
     private int numberDown = 0;
     private int numberLeft = 0;
     private int numberRight = 0;
-    private String lastDirection = "";
     private int minY;
     private int maxY;
     private int minX;
@@ -47,7 +46,7 @@ public class Monster extends Entity{
         action();
         collision = false;
         screen.getCollision().collision(this);
-        screen.getCollision().collisionPlayer(this);
+        boolean hit = screen.getCollision().collisionPlayer(this);
         screen.getCollision().collisionItem(this,false);
         if (!collision) {
             move();
@@ -119,7 +118,6 @@ public class Monster extends Entity{
                     numberLeft = 0;
                 }
             }
-            lastDirection = direction;
             change = 0;
         }
     }
@@ -181,6 +179,16 @@ public class Monster extends Entity{
                 number = 1;
             }
             counter = 0;
+        }
+    }
+
+    public void damage(boolean damage, Player player) {
+        if (damage){
+            if (!player.isInvincible()){
+                player.setLife(player.getLife()-1);
+                player.setInvincible(true);
+                player.setHit(player.getHit()+1);
+            }
         }
     }
 

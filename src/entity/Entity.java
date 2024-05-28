@@ -51,4 +51,12 @@ public abstract class Entity {
     public void setY(int y) {
         this.y = y;
     }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
 }
