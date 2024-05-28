@@ -199,8 +199,8 @@ public class Monster extends Entity{
         if (damage){
             if (!player.isInvincible()){
                 player.setLife(player.getLife()-1);
-                player.setInvincible(true);
                 player.setHit(player.getHit()+1);
+                player.setInvincible(true);
             }
             if (player.getLife() == 0){
                 player.setLost(true);

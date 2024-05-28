@@ -14,22 +14,15 @@ import java.util.ArrayList;
 
 public class Screen extends JPanel implements Runnable{
 
-    private final int tileSize = 16;
-    private final int scaledTile = tileSize * 3;
+    private final int scaledTile = 48;
     private final Keyboard keyboard = new Keyboard();
-    private final int columns = 18;
-    private final int rows = 14;
-    private final int screenWidth = scaledTile * columns;
-    private final int screenHeight = scaledTile * rows;
-    private final int mapColumns = 50;
-    private final int mapRows = 50;
-    private final int mapWidth = scaledTile * mapColumns;
-    private final int mapHeight = scaledTile * mapRows;
+    private final int screenWidth = scaledTile * 18;
+    private final int screenHeight = scaledTile * 14;
     private Thread thread;
     private final Player player = new Player(this, keyboard);
     private final Collision collision = new Collision(this);
     private final Map map = new Map(this);
-    private ArrayList<Item> items = new ArrayList<>();
+    private Item[] items = new Item[9];
     private final Message message = new Message(this);
     private ArrayList<Monster> monsters = new ArrayList<>();
 
@@ -82,7 +75,9 @@ public class Screen extends JPanel implements Runnable{
         Graphics2D g2D = (Graphics2D) g;
         map.draw(g2D);
         for (Item item : items) {
-            item.draw(g2D, this);
+            if (item != null) {
+                item.draw(g2D, this);
+            }
         }
         for (Monster monster : monsters) {
             monster.draw(g2D, this);
@@ -98,14 +93,6 @@ public class Screen extends JPanel implements Runnable{
         g2D.dispose();
     }
 
-    public int getMapColumns() {
-        return mapColumns;
-    }
-
-    public int getMapRows() {
-        return mapRows;
-    }
-
     public int getScaledTile() {
         return scaledTile;
     }
@@ -116,14 +103,6 @@ public class Screen extends JPanel implements Runnable{
 
     public int getScreenHeight() {
         return screenHeight;
-    }
-
-    public int getMapWidth() {
-        return mapWidth;
-    }
-
-    public int getMapHeight() {
-        return mapHeight;
     }
 
     public Player getPlayer() {
@@ -138,14 +117,6 @@ public class Screen extends JPanel implements Runnable{
         return map;
     }
 
-    public void setItems(ArrayList<Item> items) {
-        this.items = items;
-    }
-
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
     public void setThread(Thread thread) {
         this.thread = thread;
     }
@@ -156,5 +127,13 @@ public class Screen extends JPanel implements Runnable{
 
     public ArrayList<Monster> getMonsters() {
         return monsters;
+    }
+
+    public void setItems(Item[] items) {
+        this.items = items;
+    }
+
+    public Item[] getItems() {
+        return items;
     }
 }

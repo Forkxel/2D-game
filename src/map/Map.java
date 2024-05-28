@@ -30,7 +30,7 @@ public class Map {
         tiles.add(new Tile());
         tiles.add(new Tile());
         tiles.add(new Tile());
-        map = new int[screen.getMapColumns()][screen.getMapRows()];
+        map = new int[50][50];
 
         try {
             tiles.get(0).setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/water.png")));
@@ -63,8 +63,8 @@ public class Map {
         int playerScreenX = player.getCurrentX();
         int playerScreenY = player.getCurrentY();
 
-        for (int row = 0; row < screen.getMapRows(); row++) {
-            for (int col = 0; col < screen.getMapColumns(); col++) {
+        for (int row = 0; row < map.length; row++) {
+            for (int col = 0; col < map.length; col++) {
                 int tileIndex = map[col][row];
                 int worldX = col * tileSize;
                 int worldY = row * tileSize;
@@ -100,9 +100,9 @@ public class Map {
                 int rows = 0;
                 String line;
 
-                while (rows < screen.getMapRows() && (line = reader.readLine()) != null) {
+                while (rows < map.length && (line = reader.readLine()) != null) {
                     String[] numbers = line.split("\\s");
-                    for (int i = 0; i < screen.getMapColumns(); i++) {
+                    for (int i = 0; i < map.length; i++) {
                         if (i < numbers.length) {
                             map[i][rows] = Integer.parseInt(numbers[i]);
                         }

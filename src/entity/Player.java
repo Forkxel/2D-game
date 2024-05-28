@@ -36,8 +36,8 @@ public class Player extends Entity{
         this.speed = 2;
         this.number = 1;
         this.bounds = new Rectangle(8,25,28,16);
-        this.x = screen.getMapWidth() / 2;
-        this.y = screen.getMapHeight() / 2;
+        this.x = screen.getScaledTile() * 50 / 2;
+        this.y = screen.getScaledTile() * 50 / 2;
         this.currentX = screen.getScreenWidth() / 2 - screen.getScaledTile() / 2;
         this.currentY = screen.getScreenHeight() / 2 - screen.getScaledTile() / 2;
         this.direction = "down";
@@ -188,14 +188,14 @@ public class Player extends Entity{
      */
     private void interact(int index) {
         String name;
-        if (index >= 0 && index < screen.getItems().size()) {
-            name = screen.getItems().get(index).getName();
-            Item currentItem = screen.getItems().get(index);
+        if (index >= 0 && index < screen.getItems().length) {
+            name = screen.getItems()[index].getName();
+            Item currentItem = screen.getItems()[index];
 
             switch (name) {
                 case "key":
                     keys.add(currentItem);
-                    screen.getItems().remove(index);
+                    screen.getItems()[index] = null;
                     break;
                 case "doors":
                     boolean doorOpened = false;
@@ -206,7 +206,7 @@ public class Player extends Entity{
                         }
                     }
                     if (doorOpened) {
-                        screen.getItems().remove(index);
+                        screen.getItems()[index] = null;
                     }
                     break;
                 case "chest":
@@ -220,7 +220,7 @@ public class Player extends Entity{
                 case "potion":
                     life = maxLife;
                     hit = 0;
-                    screen.getItems().remove(index);
+                    screen.getItems()[index] = null;
                     break;
             }
         }
