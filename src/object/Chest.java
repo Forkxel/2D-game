@@ -12,7 +12,7 @@ public class Chest extends Item {
         name = "chest";
         collision = true;
         try {
-            image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/chest.png"));
+            image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("items/chest.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

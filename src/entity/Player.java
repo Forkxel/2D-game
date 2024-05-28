@@ -297,4 +297,8 @@ public class Player extends Entity{
     public boolean isInvincible() {
         return invincible;
     }
+
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
 }

@@ -20,6 +20,7 @@ public class Monster extends Entity{
     private int maxY;
     private int minX;
     private int maxX;
+    private String lastDirection;
 
     public Monster(Screen screen) {
         this.screen = screen;
@@ -88,34 +89,46 @@ public class Monster extends Entity{
             if (number <= 25) {
                 if (numberUp < 2) {
                     direction = "up";
+                    lastDirection = direction;
                     numberUp++;
                     numberDown = 0;
                     numberLeft = 0;
                     numberRight = 0;
+                } else {
+                    direction = lastDirection;
                 }
             } else if (number <= 50) {
                 if (numberDown < 2) {
                     direction = "down";
+                    lastDirection = direction;
                     numberDown++;
                     numberUp = 0;
                     numberLeft = 0;
                     numberRight = 0;
+                } else {
+                    direction = lastDirection;
                 }
             } else if (number <= 75) {
                 if (numberLeft < 2) {
                     direction = "left";
+                    lastDirection = direction;
                     numberLeft++;
                     numberUp = 0;
                     numberDown = 0;
                     numberRight = 0;
+                } else {
+                    direction = lastDirection;
                 }
             } else {
                 if (numberRight < 2) {
                     direction = "right";
+                    lastDirection = direction;
                     numberRight++;
                     numberUp = 0;
                     numberDown = 0;
                     numberLeft = 0;
+                } else {
+                    direction = lastDirection;
                 }
             }
             change = 0;
@@ -188,6 +201,9 @@ public class Monster extends Entity{
                 player.setLife(player.getLife()-1);
                 player.setInvincible(true);
                 player.setHit(player.getHit()+1);
+            }
+            if (player.getLife() == 0){
+                player.setLost(true);
             }
         }
     }

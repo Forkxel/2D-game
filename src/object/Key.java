@@ -15,16 +15,16 @@ public class Key extends Item {
         try {
             switch (color){
                 case "red":
-                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/key/red_key.png"));
+                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("items/key/red_key.png"));
                     break;
                 case "blue":
-                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/key/blue_key.png"));
+                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("items/key/blue_key.png"));
                     break;
                 case "green":
-                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/key/green_key.png"));
+                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("items/key/green_key.png"));
                     break;
                 case "yellow":
-                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/key/key.png"));
+                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("items/key/key.png"));
                     break;
             }
         } catch (IOException e) {
