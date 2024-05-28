@@ -30,7 +30,7 @@ public class Screen extends JPanel implements Runnable{
     private final Collision collision = new Collision(this);
     private final Map map = new Map(this);
     private ArrayList<Item> items = new ArrayList<>();
-    private final WinningMessage message = new WinningMessage(this);
+    private final Message message = new Message(this);
     private ArrayList<Monster> monsters = new ArrayList<>();
 
     public Screen() {
@@ -88,8 +88,12 @@ public class Screen extends JPanel implements Runnable{
             monster.draw(g2D, this);
         }
         player.draw(g2D);
+        player.drawHearts(g2D);
         if (player.isWin()){
-            message.draw(g2D);
+            message.drawWin(g2D);
+        }
+        if (player.isLost()){
+            message.drawLose(g2D);
         }
         g2D.dispose();
     }

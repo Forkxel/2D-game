@@ -20,6 +20,10 @@ public class Player extends Entity{
     private final int currentY;
     private final ArrayList<Item> keys;
     private boolean win;
+    private boolean lost = false;
+    private boolean invincible = false;
+    private int changeInvincibility = 0;
+    private int hit;
 
     /**
      * Constructor for Player class that is also loading images
@@ -37,6 +41,8 @@ public class Player extends Entity{
         this.currentX = screen.getScreenWidth() / 2 - screen.getScaledTile() / 2;
         this.currentY = screen.getScreenHeight() / 2 - screen.getScaledTile() / 2;
         this.direction = "down";
+        this.maxLife = 4;
+        this.life = maxLife;
         this.keys = new ArrayList<>();
         try {
             up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/up_1.png"));
@@ -48,6 +54,8 @@ public class Player extends Entity{
             right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/right_1.png"));
             right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/right_2.png"));
             neutralDown = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/neutral_down.png"));
+            emptyHeart = ImageIO.read(getClass().getClassLoader().getResourceAsStream("heart/empty_heart.png"));
+            heart = ImageIO.read(getClass().getClassLoader().getResourceAsStream("heart/heart.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,11 +74,13 @@ public class Player extends Entity{
         int indexOfMonster = screen.getCollision().collisionMonster(this, screen.getMonsters());
         int index = screen.getCollision().collisionItem(this, true);
         interact(index);
+        damage(indexOfMonster);
 
         if (!collision) {
             move();
         }
         flipAnimation();
+        setInvincible();
     }
 
     /**
@@ -157,6 +167,21 @@ public class Player extends Entity{
         }
     }
 
+    public void drawHearts(Graphics2D g2D){
+        int x = screen.getScaledTile()/2;
+        int y = screen.getScaledTile()/2;
+        for (int i = 0; i < life;i++){
+            g2D.drawImage(heart, x, y,16*3,16*3, null);
+            x += screen.getScaledTile();
+        }
+        if (maxLife != life){
+            for (int i = 0; i < hit;i++){
+                g2D.drawImage(emptyHeart, x, y,16*3,16*3, null);
+                x += screen.getScaledTile();
+            }
+        }
+    }
+
     /**
      * Method for interacting with items
      * @param index is index from arraylist of items to find with which item player is interacting
@@ -196,6 +221,29 @@ public class Player extends Entity{
         }
     }
 
+    public void damage(int index){
+        if (index >= 0 && index < screen.getItems().size()){
+            if (!invincible){
+                life--;
+                hit++;
+                invincible = true;
+            }
+            if (life == 0){
+                lost = true;
+            }
+        }
+    }
+
+    public void setInvincible(){
+        if (invincible){
+            changeInvincibility++;
+            if (changeInvincibility > 100){
+                invincible = false;
+                changeInvincibility = 0;
+            }
+        }
+    }
+
     @Override
     protected void move() {
         switch (direction) {
@@ -224,5 +272,9 @@ public class Player extends Entity{
 
     public boolean isWin() {
         return win;
+    }
+
+    public boolean isLost() {
+        return lost;
     }
 }
