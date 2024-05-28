@@ -18,7 +18,7 @@ public class MonsterPlacement {
         Monster monster1 = new Monster(screen);
         monster1.setX(screen.getScaledTile()*37);
         monster1.setY(screen.getScaledTile()*43);
-        monster1.setMaxX(screen.getScaledTile()*40);
+        monster1.setMaxX(screen.getScaledTile()*39);
         monster1.setMaxY(screen.getScaledTile()*47);
         monster1.setMinX(screen.getScaledTile()*32);
         monster1.setMinY(screen.getScaledTile()*41);

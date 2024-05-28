@@ -29,9 +29,9 @@ public class Monster extends Entity{
         life = maxLife;
         bounds = new Rectangle();
         bounds.x = 3;
-        bounds.y = 6;
+        bounds.y = 10;
         bounds.width = 42;
-        bounds.height = 30;
+        bounds.height = 40;
         direction = "down";
 
         try {
@@ -47,7 +47,8 @@ public class Monster extends Entity{
         action();
         collision = false;
         screen.getCollision().collision(this);
-        int index = screen.getCollision().collisionItem(this,false);
+        screen.getCollision().collisionPlayer(this);
+        screen.getCollision().collisionItem(this,false);
         if (!collision) {
             move();
         }
@@ -81,7 +82,7 @@ public class Monster extends Entity{
 
     public void action() {
         change++;
-        if (change == 90) {
+        if (change == 200) {
             Random random = new Random();
             int number = random.nextInt(100);
 

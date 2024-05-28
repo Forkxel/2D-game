@@ -63,6 +63,7 @@ public class Player extends Entity{
 
         setCollision(false);
         screen.getCollision().collision(this);
+        int indexOfMonster = screen.getCollision().collisionMonster(this, screen.getMonsters());
         int index = screen.getCollision().collisionItem(this, true);
         interact(index);
 

@@ -1,10 +1,13 @@
 package map;
 
 import entity.Entity;
+import entity.Monster;
+import entity.Player;
 import object.Item;
 import window.Screen;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Class for finding collision
@@ -153,11 +156,75 @@ public class Collision {
                         index = i;
                     }
                 }
-                
+
                 entityBounds.x = entity.getX() + entity.getBounds().x;
                 entityBounds.y = entity.getY() + entity.getBounds().y;
             }
         }
         return index;
+    }
+
+    public int collisionMonster(Entity entity, ArrayList<Monster> monsters) {
+        Rectangle entityBounds = new Rectangle(entity.getX() + entity.getBounds().x, entity.getY() + entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
+        int index = -1;
+
+        for (Monster monster : monsters) {
+            Rectangle monsterBounds = new Rectangle(monster.getX() + monster.getBounds().x, monster.getY() + monster.getBounds().y, monster.getBounds().width, monster.getBounds().height);
+
+            Rectangle nextEntityBounds = new Rectangle(entityBounds);
+            switch (entity.getDirection()) {
+                case "up":
+                    nextEntityBounds.translate(0, -entity.getSpeed());
+                    break;
+                case "down":
+                    nextEntityBounds.translate(0, entity.getSpeed());
+                    break;
+                case "left":
+                    nextEntityBounds.translate(-entity.getSpeed(), 0);
+                    break;
+                case "right":
+                    nextEntityBounds.translate(entity.getSpeed(), 0);
+                    break;
+            }
+
+            if (nextEntityBounds.intersects(monsterBounds)) {
+                if (entity != monster) {
+                    entity.setCollision(true);
+                    index = monsters.indexOf(monster);
+                }
+                break;
+            }
+        }
+        return index;
+    }
+
+    public void collisionPlayer(Entity entity) {
+        Rectangle entityBounds = new Rectangle(entity.getX() + entity.getBounds().x, entity.getY() + entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
+        Player player = screen.getPlayer();
+        int playerX = player.getX() + player.getBounds().x;
+        int playerY = player.getY() + player.getBounds().y;
+        int playerWidth = player.getBounds().width;
+        int playerHeight = player.getBounds().height;
+        Rectangle playerBounds = new Rectangle(playerX, playerY, playerWidth, playerHeight);
+        Rectangle nextEntityBounds = new Rectangle(entityBounds);
+
+        switch (entity.getDirection()) {
+            case "up":
+                nextEntityBounds.translate(0, -entity.getSpeed());
+                break;
+            case "down":
+                nextEntityBounds.translate(0, entity.getSpeed());
+                break;
+            case "left":
+                nextEntityBounds.translate(-entity.getSpeed(), 0);
+                break;
+            case "right":
+                nextEntityBounds.translate(entity.getSpeed(), 0);
+                break;
+        }
+
+        if (nextEntityBounds.intersects(playerBounds)) {
+            entity.setCollision(true);
+        }
     }
 }

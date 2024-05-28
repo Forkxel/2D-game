@@ -84,10 +84,10 @@ public class Screen extends JPanel implements Runnable{
         for (Item item : items) {
             item.draw(g2D, this);
         }
-        player.draw(g2D);
         for (Monster monster : monsters) {
             monster.draw(g2D, this);
         }
+        player.draw(g2D);
         if (player.isWin()){
             message.draw(g2D);
         }
@@ -148,5 +148,9 @@ public class Screen extends JPanel implements Runnable{
 
     public void setMonsters(ArrayList<Monster> monsters) {
         this.monsters = monsters;
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
     }
 }
