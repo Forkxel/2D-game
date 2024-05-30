@@ -8,6 +8,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Class for entity Monster
+ */
 public class Monster extends Entity {
 
     private int change = 0;
@@ -21,6 +24,10 @@ public class Monster extends Entity {
     private int minX;
     private int maxX;
 
+    /**
+     * Constructor for Monster class that is also loading images
+     * @param screen used for interacting with main game panel
+     */
     public Monster(Screen screen) {
         this.screen = screen;
         speed = 2;
@@ -39,18 +46,24 @@ public class Monster extends Entity {
         }
     }
 
+    /**
+     * Method used for updating monsters positions and collisions
+     */
     @Override
     public void update() {
         action();
         collision = false;
         screen.getCollision().collision(this);
-        boolean hit = screen.getCollision().collisionPlayer(this);
+        screen.getCollision().collisionPlayer(this);
         screen.getCollision().collisionItem(this,false);
         if (!collision) {
             move();
         }
     }
 
+    /**
+     * Method for moving with monsters
+     */
     @Override
     protected void move() {
         switch (direction) {
@@ -77,50 +90,80 @@ public class Monster extends Entity {
         }
     }
 
+    /**
+     * Method to randomly determine in which direction monsters will go
+     */
     public void action() {
         change++;
         if (change == 60) {
             Random random = new Random();
             int number = random.nextInt(100);
+            boolean directionChanged = false;
 
-            if (number <= 25) {
-                if (numberUp < 2) {
-                    direction = "up";
-                    numberUp++;
-                    numberDown = 0;
-                    numberLeft = 0;
-                    numberRight = 0;
-                }
-            } else if (number <= 50) {
-                if (numberDown < 2) {
-                    direction = "down";
-                    numberDown++;
-                    numberUp = 0;
-                    numberLeft = 0;
-                    numberRight = 0;
-                }
-            } else if (number <= 75) {
-                if (numberLeft < 2) {
-                    direction = "left";
-                    numberLeft++;
-                    numberUp = 0;
-                    numberDown = 0;
-                    numberRight = 0;
-                }
-            } else {
-                if (numberRight < 2) {
-                    direction = "right";
-                    numberRight++;
-                    numberUp = 0;
-                    numberDown = 0;
-                    numberLeft = 0;
+            while (!directionChanged) {
+                switch (number / 25) {
+                    case 0:
+                        if (numberUp < 2) {
+                            direction = "up";
+                            numberUp++;
+                            resetOtherCounters("up");
+                            directionChanged = true;
+                        } else {
+                            number = random.nextInt(100);
+                        }
+                        break;
+                    case 1:
+                        if (numberDown < 2) {
+                            direction = "down";
+                            numberDown++;
+                            resetOtherCounters("down");
+                            directionChanged = true;
+                        } else {
+                            number = random.nextInt(100);
+                        }
+                        break;
+                    case 2:
+                        if (numberLeft < 2) {
+                            direction = "left";
+                            numberLeft++;
+                            resetOtherCounters("left");
+                            directionChanged = true;
+                        } else {
+                            number = random.nextInt(100);
+                        }
+                        break;
+                    case 3:
+                        if (numberRight < 2) {
+                            direction = "right";
+                            numberRight++;
+                            resetOtherCounters("right");
+                            directionChanged = true;
+                        } else {
+                            number = random.nextInt(100);
+                        }
+                        break;
                 }
             }
             change = 0;
         }
     }
 
-    public void draw(Graphics2D g2D, Screen screen) {
+    /**
+     * Method to reset counters of directions
+     * @param currentDirection name of the current direction
+     */
+    private void resetOtherCounters(String currentDirection) {
+        if (!currentDirection.equals("up")) numberUp = 0;
+        if (!currentDirection.equals("down")) numberDown = 0;
+        if (!currentDirection.equals("left")) numberLeft = 0;
+        if (!currentDirection.equals("right")) numberRight = 0;
+    }
+
+    /**
+     * Method to draw monsters on the map
+     * @param g2D Graphics2D for drawing
+     */
+    public void draw(Graphics2D g2D) {
         Player player = screen.getPlayer();
         int tileSize = screen.getScaledTile();
 
@@ -180,6 +223,11 @@ public class Monster extends Entity {
         }
     }
 
+    /**
+     * Method used to find if monster has touched player
+     * @param damage if true monster has touched player
+     * @param player player character
+     */
     public void damage(boolean damage, Player player) {
         if (damage){
             if (!player.isInvincible()){
