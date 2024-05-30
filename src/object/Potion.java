@@ -3,6 +3,9 @@ package object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
+/**
+ * Class for item potion
+ */
 public class Potion extends Item{
 
     public Potion() {
