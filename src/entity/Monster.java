@@ -153,10 +153,16 @@ public class Monster extends Entity {
      * @param currentDirection name of the current direction
      */
     private void resetOtherCounters(String currentDirection) {
-        if (!currentDirection.equals("up")) numberUp = 0;
-        if (!currentDirection.equals("down")) numberDown = 0;
-        if (!currentDirection.equals("left")) numberLeft = 0;
-        if (!currentDirection.equals("right")) numberRight = 0;
+        if (!currentDirection.equals("up")) {
+            numberUp = 0;
+        } else {
+            numberDown = 0;
+        }
+        if (!currentDirection.equals("right")) {
+            numberRight = 0;
+        } else {
+            numberLeft = 0;
+        }
     }
 
     /**
