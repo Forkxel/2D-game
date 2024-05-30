@@ -1,13 +1,27 @@
 package window;
 
-import java.awt.*;
+import entity.Player;
 
-public class Message {
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+public class UI {
 
     private final Screen screen;
+    private final BufferedImage heart;
+    private final BufferedImage emptyHeart;
 
-    public Message(Screen screen) {
+    public UI(Screen screen) {
         this.screen = screen;
+
+        try {
+            emptyHeart = ImageIO.read(getClass().getClassLoader().getResourceAsStream("heart/empty_heart.png"));
+            heart = ImageIO.read(getClass().getClassLoader().getResourceAsStream("heart/heart.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void drawWin(Graphics2D g2D) {
@@ -43,5 +57,20 @@ public class Message {
         g2D.drawString(text, screen.getScreenWidth() / 2 - length / 2, screen.getScreenHeight() / 2);
 
         screen.setThread(null);
+    }
+
+    public void drawHearts(Graphics2D g2D, Player player) {
+        int x = screen.getScaledTile()/2;
+        int y = screen.getScaledTile()/2;
+        for (int i = 0; i < player.getLife();i++){
+            g2D.drawImage(heart, x, y,16*3,16*3, null);
+            x += screen.getScaledTile();
+        }
+        if (player.getMaxLife() != player.getLife()){
+            for (int i = 0; i < player.getHit();i++){
+                g2D.drawImage(emptyHeart, x, y,16*3,16*3, null);
+                x += screen.getScaledTile();
+            }
+        }
     }
 }

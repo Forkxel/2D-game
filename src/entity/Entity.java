@@ -62,4 +62,8 @@ public abstract class Entity {
     public void setLife(int life) {
         this.life = life;
     }
+
+    public int getMaxLife() {
+        return maxLife;
+    }
 }

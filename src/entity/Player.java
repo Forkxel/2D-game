@@ -167,24 +167,6 @@ public class Player extends Entity{
         }
     }
 
-    /**
-     *  Method for drawing players number of lives
-     * @param g2D for drawing hearts
-     */
-    public void drawHearts(Graphics2D g2D) {
-        int x = screen.getScaledTile()/2;
-        int y = screen.getScaledTile()/2;
-        for (int i = 0; i < life;i++){
-            g2D.drawImage(heart, x, y,16*3,16*3, null);
-            x += screen.getScaledTile();
-        }
-        if (maxLife != life){
-            for (int i = 0; i < hit;i++){
-                g2D.drawImage(emptyHeart, x, y,16*3,16*3, null);
-                x += screen.getScaledTile();
-            }
-        }
-    }
 
     /**
      * Method for interacting with items
