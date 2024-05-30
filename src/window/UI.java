@@ -4,9 +4,14 @@ import entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.font.TextLayout;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Class for drawing on the panel
+ */
 public class UI {
 
     private final Screen screen;
@@ -24,41 +29,69 @@ public class UI {
         }
     }
 
+    /**
+     * Method that draw winning message on the panel
+     * @param g2D Graphics2D for drawing
+     */
     public void drawWin(Graphics2D g2D) {
         String text = "You won!";
         String text2 = "You found the treasure!";
 
-        g2D.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        Font font = new Font("Montserrat", Font.PLAIN, 40);
+        g2D.setFont(font);
 
-        int length = (int) g2D.getFontMetrics().getStringBounds(text, g2D).getWidth();
-        int length2 = (int) g2D.getFontMetrics().getStringBounds(text2, g2D).getWidth();
+        TextLayout layout1 = new TextLayout(text, font, g2D.getFontRenderContext());
+        TextLayout layout2 = new TextLayout(text2, font, g2D.getFontRenderContext());
+
+        Rectangle2D bounds1 = layout1.getBounds();
+        Rectangle2D bounds2 = layout2.getBounds();
+
+        int x1 = (screen.getScreenWidth() - (int) bounds1.getWidth()) / 2;
+        int x2 = (screen.getScreenWidth() - (int) bounds2.getWidth()) / 2;
+        int y1 = screen.getScreenHeight() / 2 - screen.getScaledTile();
+        int y2 = screen.getScreenHeight() / 2;
 
         g2D.setColor(Color.BLACK);
         g2D.fillRect(0, 0, screen.getScreenWidth(), screen.getScreenHeight());
 
         g2D.setColor(Color.YELLOW);
-        g2D.drawString(text, screen.getScreenWidth() / 2 - length / 2, screen.getScreenHeight() / 2 - screen.getScaledTile());
-        g2D.drawString(text2, screen.getScreenWidth() / 2 - length2 / 2, screen.getScreenHeight() / 2);
+        layout1.draw(g2D, x1, y1);
+        layout2.draw(g2D, x2, y2);
 
         screen.setThread(null);
     }
 
+    /**
+     * Method that draw loosing message on the panel
+     * @param g2D Graphics2D for drawing
+     */
     public void drawLose(Graphics2D g2D) {
         String text = "You died";
 
-        g2D.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        Font font = new Font("Montserrat", Font.PLAIN, 40);
+        g2D.setFont(font);
 
-        int length = (int) g2D.getFontMetrics().getStringBounds(text, g2D).getWidth();
+        TextLayout layout = new TextLayout(text, font, g2D.getFontRenderContext());
+
+        Rectangle2D bounds = layout.getBounds();
+
+        int x = (screen.getScreenWidth() - (int) bounds.getWidth()) / 2;
+        int y = screen.getScreenHeight() / 2;
 
         g2D.setColor(Color.BLACK);
         g2D.fillRect(0, 0, screen.getScreenWidth(), screen.getScreenHeight());
 
         g2D.setColor(Color.RED);
-        g2D.drawString(text, screen.getScreenWidth() / 2 - length / 2, screen.getScreenHeight() / 2);
+        layout.draw(g2D, x, y);
 
         screen.setThread(null);
     }
 
+    /**
+     * Method that is drawing player lives on the panel
+     * @param g2D Graphics2D for drawing
+     * @param player player
+     */
     public void drawHearts(Graphics2D g2D, Player player) {
         int x = screen.getScaledTile()/2;
         int y = screen.getScaledTile()/2;
