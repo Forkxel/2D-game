@@ -164,6 +164,12 @@ public class Collision {
         return index;
     }
 
+    /**
+     * Finds if player is colliding with monster
+     * @param entity player
+     * @param monsters ArrayList of monsters
+     * @return true if monster hit player
+     */
     public boolean collisionMonster(Entity entity, ArrayList<Monster> monsters) {
         Rectangle entityBounds = new Rectangle(entity.getX() + entity.getBounds().x, entity.getY() + entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
         boolean hit = false;
@@ -186,6 +192,11 @@ public class Collision {
         return hit;
     }
 
+    /**
+     * Finds if monster collided with player
+     * @param entity
+     * @return true if monster collided with player
+     */
     public boolean collisionPlayer(Entity entity) {
         Rectangle entityBounds = new Rectangle(entity.getX() + entity.getBounds().x, entity.getY() + entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
         Player player = screen.getPlayer();
@@ -206,6 +217,12 @@ public class Collision {
         return hit;
     }
 
+    /**
+     * Method to move bounds of the entity
+     * @param direction in which entity is moving
+     * @param entity that is moving
+     * @param bounds of the entity
+     */
     private void moveBounds(String direction, Entity entity, Rectangle bounds) {
         switch (direction) {
             case "up":
