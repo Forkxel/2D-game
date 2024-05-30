@@ -12,6 +12,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Class for the panel on which the game is played
+ */
 public class Screen extends JPanel implements Runnable {
 
     private final int scaledTile = 48;
@@ -22,9 +25,9 @@ public class Screen extends JPanel implements Runnable {
     private final Player player = new Player(this, keyboard);
     private final Collision collision = new Collision(this);
     private final Map map = new Map(this);
-    private Item[] items = new Item[9];
+    private final Item[] items;
     private final UI message = new UI(this);
-    private ArrayList<Monster> monsters = new ArrayList<>();
+    private final ArrayList<Monster> monsters;
 
     public Screen() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -34,12 +37,15 @@ public class Screen extends JPanel implements Runnable {
         this.setFocusable(true);
         ItemPlacement itemPlacement = new ItemPlacement(this);
         MonsterPlacement monsterPlacement = new MonsterPlacement(this);
-        setItems(itemPlacement.addItems());
-        setMonsters(monsterPlacement.addMonsters());
+        items = itemPlacement.addItems();
+        monsters = monsterPlacement.addMonsters();
         thread = new Thread(this);
         thread.start();
     }
 
+    /**
+     * Run for thread that is running the game
+     */
     @Override
     public void run() {
         int fps = 60;
@@ -70,6 +76,10 @@ public class Screen extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Method to draw everything on the panel
+     * @param g the <code>Graphics</code> object to protect
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
@@ -121,16 +131,8 @@ public class Screen extends JPanel implements Runnable {
         this.thread = thread;
     }
 
-    public void setMonsters(ArrayList<Monster> monsters) {
-        this.monsters = monsters;
-    }
-
     public ArrayList<Monster> getMonsters() {
         return monsters;
-    }
-
-    public void setItems(Item[] items) {
-        this.items = items;
     }
 
     public Item[] getItems() {
