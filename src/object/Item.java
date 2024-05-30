@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Mother class for all items
+ */
 public abstract class Item {
 
     protected BufferedImage image;
@@ -16,6 +19,11 @@ public abstract class Item {
     protected Rectangle bounds = new Rectangle(0,0,48,48);
     protected String color;
 
+    /**
+     * Method to draw item on the map
+     * @param g2D Graphics2D for drawing
+     * @param screen used for interacting with main game panel
+     */
     public void draw(Graphics2D g2D, Screen screen) {
         Player player = screen.getPlayer();
         int tileSize = screen.getScaledTile();
@@ -42,6 +50,9 @@ public abstract class Item {
         }
     }
 
+    /**
+     * Method to set colored item
+     */
     public void setColorPicture() {
         try {
             setImageBasedOnColor();
