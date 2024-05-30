@@ -35,7 +35,7 @@ public class Player extends Entity{
         this.keyboard = keyboard;
         this.speed = 2;
         this.number = 1;
-        this.bounds = new Rectangle(8,25,28,16);
+        this.bounds = new Rectangle(8,30,28,16);
         this.x = screen.getScaledTile() * 50 / 2;
         this.y = screen.getScaledTile() * 50 / 2;
         this.currentX = screen.getScreenWidth() / 2 - screen.getScaledTile() / 2;
@@ -167,6 +167,10 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     *  Method for drawing players number of lives
+     * @param g2D for drawing hearts
+     */
     public void drawHearts(Graphics2D g2D) {
         int x = screen.getScaledTile()/2;
         int y = screen.getScaledTile()/2;
@@ -226,6 +230,10 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method for player to receive damage from monster
+     * @param damage if player touched monster
+     */
     public void damage(boolean damage) {
         for (int i = 0; i < screen.getMonsters().size(); i++) {
             Monster monster = screen.getMonsters().get(i);
@@ -243,6 +251,9 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Set player to not receive damage
+     */
     public void setInvincible() {
         if (invincible){
             changeInvincibility++;
@@ -253,6 +264,9 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method to move player
+     */
     @Override
     protected void move() {
         switch (direction) {
