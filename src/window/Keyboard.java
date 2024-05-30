@@ -3,6 +3,9 @@ package window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Class for finding inputs from keyboard
+ */
 public class Keyboard implements KeyListener {
 
     private boolean pressedW, pressedS, pressedA, pressedD, pressedShift;
@@ -12,6 +15,10 @@ public class Keyboard implements KeyListener {
 
     }
 
+    /**
+     * Method to find what key is pressed
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()  == KeyEvent.VK_W){
@@ -31,6 +38,10 @@ public class Keyboard implements KeyListener {
         }
     }
 
+    /**
+     * Method to find what key was released
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W){
