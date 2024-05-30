@@ -3,6 +3,9 @@ package entity;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Mother class for all entities
+ */
 public abstract class Entity {
 
     protected int x, y;

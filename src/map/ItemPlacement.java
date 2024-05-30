@@ -18,7 +18,7 @@ public class ItemPlacement {
      * Method that is used for adding items to array
      * @return array of items
      */
-    public Item[] addItems(){
+    public Item[] addItems() {
         Item[] items = new Item[9];
 
         Key key = new Key();

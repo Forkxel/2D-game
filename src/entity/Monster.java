@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-public class Monster extends Entity{
+public class Monster extends Entity {
 
     private int change = 0;
     private final Screen screen;
@@ -20,13 +20,10 @@ public class Monster extends Entity{
     private int maxY;
     private int minX;
     private int maxX;
-    private String lastDirection;
 
     public Monster(Screen screen) {
         this.screen = screen;
-        speed = 1;
-        maxLife = 4;
-        life = maxLife;
+        speed = 3;
         bounds = new Rectangle();
         bounds.x = 3;
         bounds.y = 10;
@@ -35,15 +32,15 @@ public class Monster extends Entity{
         direction = "down";
 
         try {
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("monster/slime_1.png"));
-            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("monster/slime_2.png"));
+            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("monster/monster_1.png"));
+            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("monster/monster_2.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void update(){
+    public void update() {
         action();
         collision = false;
         screen.getCollision().collision(this);
@@ -82,53 +79,41 @@ public class Monster extends Entity{
 
     public void action() {
         change++;
-        if (change == 200) {
+        if (change == 60) {
             Random random = new Random();
             int number = random.nextInt(100);
 
             if (number <= 25) {
                 if (numberUp < 2) {
                     direction = "up";
-                    lastDirection = direction;
                     numberUp++;
                     numberDown = 0;
                     numberLeft = 0;
                     numberRight = 0;
-                } else {
-                    direction = lastDirection;
                 }
             } else if (number <= 50) {
                 if (numberDown < 2) {
                     direction = "down";
-                    lastDirection = direction;
                     numberDown++;
                     numberUp = 0;
                     numberLeft = 0;
                     numberRight = 0;
-                } else {
-                    direction = lastDirection;
                 }
             } else if (number <= 75) {
                 if (numberLeft < 2) {
                     direction = "left";
-                    lastDirection = direction;
                     numberLeft++;
                     numberUp = 0;
                     numberDown = 0;
                     numberRight = 0;
-                } else {
-                    direction = lastDirection;
                 }
             } else {
                 if (numberRight < 2) {
                     direction = "right";
-                    lastDirection = direction;
                     numberRight++;
                     numberUp = 0;
                     numberDown = 0;
                     numberLeft = 0;
-                } else {
-                    direction = lastDirection;
                 }
             }
             change = 0;

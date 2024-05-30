@@ -41,7 +41,7 @@ public class Player extends Entity{
         this.currentX = screen.getScreenWidth() / 2 - screen.getScaledTile() / 2;
         this.currentY = screen.getScreenHeight() / 2 - screen.getScaledTile() / 2;
         this.direction = "down";
-        this.maxLife = 4;
+        this.maxLife = 3;
         this.life = maxLife;
         this.keys = new ArrayList<>();
         try {
@@ -131,7 +131,7 @@ public class Player extends Entity{
      * Method for drawing player
      * @param g2D Graphics2D for drawing
      */
-    public void draw(Graphics2D g2D){
+    public void draw(Graphics2D g2D) {
         switch (direction){
             case "up":
                 if (number == 1){
@@ -167,7 +167,7 @@ public class Player extends Entity{
         }
     }
 
-    public void drawHearts(Graphics2D g2D){
+    public void drawHearts(Graphics2D g2D) {
         int x = screen.getScaledTile()/2;
         int y = screen.getScaledTile()/2;
         for (int i = 0; i < life;i++){
@@ -226,7 +226,7 @@ public class Player extends Entity{
         }
     }
 
-    public void damage(boolean damage){
+    public void damage(boolean damage) {
         for (int i = 0; i < screen.getMonsters().size(); i++) {
             Monster monster = screen.getMonsters().get(i);
             monster.damage(screen.getCollision().collisionPlayer(monster),this);
@@ -243,7 +243,7 @@ public class Player extends Entity{
         }
     }
 
-    public void setInvincible(){
+    public void setInvincible() {
         if (invincible){
             changeInvincibility++;
             if (changeInvincibility > 100){
