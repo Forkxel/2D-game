@@ -3,6 +3,9 @@ package object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
+/**
+ * Class for item key
+ */
 public class Key extends Item {
 
     public Key() {
@@ -10,6 +13,9 @@ public class Key extends Item {
         collision = false;
     }
 
+    /**
+     * sets image based on the color of the key
+     */
     @Override
     public void setImageBasedOnColor(){
         try {
