@@ -172,20 +172,8 @@ public class Collision {
             Rectangle monsterBounds = new Rectangle(monster.getX() + monster.getBounds().x, monster.getY() + monster.getBounds().y, monster.getBounds().width, monster.getBounds().height);
 
             Rectangle nextEntityBounds = new Rectangle(entityBounds);
-            switch (entity.getDirection()) {
-                case "up":
-                    nextEntityBounds.translate(0, -entity.getSpeed());
-                    break;
-                case "down":
-                    nextEntityBounds.translate(0, entity.getSpeed());
-                    break;
-                case "left":
-                    nextEntityBounds.translate(-entity.getSpeed(), 0);
-                    break;
-                case "right":
-                    nextEntityBounds.translate(entity.getSpeed(), 0);
-                    break;
-            }
+
+            moveBounds(entity.getDirection(), entity, nextEntityBounds);
 
             if (nextEntityBounds.intersects(monsterBounds)) {
                 if (entity != monster) {
@@ -209,25 +197,29 @@ public class Collision {
         Rectangle nextEntityBounds = new Rectangle(entityBounds);
         boolean hit = false;
 
-        switch (entity.getDirection()) {
-            case "up":
-                nextEntityBounds.translate(0, -entity.getSpeed());
-                break;
-            case "down":
-                nextEntityBounds.translate(0, entity.getSpeed());
-                break;
-            case "left":
-                nextEntityBounds.translate(-entity.getSpeed(), 0);
-                break;
-            case "right":
-                nextEntityBounds.translate(entity.getSpeed(), 0);
-                break;
-        }
+        moveBounds(entity.getDirection(), entity, nextEntityBounds);
 
         if (nextEntityBounds.intersects(playerBounds)) {
             entity.setCollision(true);
             hit = true;
         }
         return hit;
+    }
+
+    private void moveBounds(String direction, Entity entity, Rectangle bounds){
+        switch (direction) {
+            case "up":
+                bounds.translate(0, -entity.getSpeed());
+                break;
+            case "down":
+                bounds.translate(0, entity.getSpeed());
+                break;
+            case "left":
+                bounds.translate(-entity.getSpeed(), 0);
+                break;
+            case "right":
+                bounds.translate(entity.getSpeed(), 0);
+                break;
+        }
     }
 }
