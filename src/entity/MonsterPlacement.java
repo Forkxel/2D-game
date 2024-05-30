@@ -4,6 +4,9 @@ import window.Screen;
 
 import java.util.ArrayList;
 
+/**
+ * Class for adding monsters to ArrayList
+ */
 public class MonsterPlacement {
 
     private final Screen screen;
@@ -12,6 +15,10 @@ public class MonsterPlacement {
         this.screen = screen;
     }
 
+    /**
+     * Method for adding monsters to ArrayList
+     * @return ArrayList of monsters
+     */
     public ArrayList<Monster> addMonsters() {
         ArrayList<Monster> monsters = new ArrayList<>();
 
@@ -53,9 +60,9 @@ public class MonsterPlacement {
 
         Monster monster5 = new Monster(screen);
         monster5.setX(screen.getScaledTile()*20);
-        monster5.setY(screen.getScaledTile()*16);
+        monster5.setY(screen.getScaledTile()*11);
         monster5.setMaxX(screen.getScaledTile()*24);
-        monster5.setMaxY(screen.getScaledTile()*19);
+        monster5.setMaxY(screen.getScaledTile()*13);
         monster5.setMinX(screen.getScaledTile()*16);
         monster5.setMinY(screen.getScaledTile()*9);
         monsters.add(monster5);
@@ -63,8 +70,8 @@ public class MonsterPlacement {
         Monster monster6 = new Monster(screen);
         monster6.setX(screen.getScaledTile()*28);
         monster6.setY(screen.getScaledTile()*11);
-        monster6.setMaxX(screen.getScaledTile()*30);
-        monster6.setMaxY(screen.getScaledTile()*19);
+        monster6.setMaxX(screen.getScaledTile()*29);
+        monster6.setMaxY(screen.getScaledTile()*13);
         monster6.setMinX(screen.getScaledTile()*25);
         monster6.setMinY(screen.getScaledTile()*9);
         monsters.add(monster6);
@@ -75,16 +82,16 @@ public class MonsterPlacement {
         monster7.setMaxX(screen.getScaledTile()*24);
         monster7.setMaxY(screen.getScaledTile()*19);
         monster7.setMinX(screen.getScaledTile()*16);
-        monster7.setMinY(screen.getScaledTile()*9);
+        monster7.setMinY(screen.getScaledTile()*14);
         monsters.add(monster7);
 
         Monster monster8 = new Monster(screen);
         monster8.setX(screen.getScaledTile()*26);
-        monster8.setY(screen.getScaledTile()*11);
-        monster8.setMaxX(screen.getScaledTile()*30);
+        monster8.setY(screen.getScaledTile()*16);
+        monster8.setMaxX(screen.getScaledTile()*29);
         monster8.setMaxY(screen.getScaledTile()*19);
         monster8.setMinX(screen.getScaledTile()*25);
-        monster8.setMinY(screen.getScaledTile()*9);
+        monster8.setMinY(screen.getScaledTile()*14);
         monsters.add(monster8);
 
         Monster monster9 = new Monster(screen);
@@ -235,7 +242,7 @@ public class MonsterPlacement {
         monster25.setX(screen.getScaledTile()*31);
         monster25.setY(screen.getScaledTile()*18);
         monster25.setMaxX(screen.getScaledTile()*33);
-        monster25.setMaxY(screen.getScaledTile()*23);
+        monster25.setMaxY(screen.getScaledTile()*22);
         monster25.setMinX(screen.getScaledTile()*30);
         monster25.setMinY(screen.getScaledTile()*14);
         monsters.add(monster25);
@@ -257,6 +264,33 @@ public class MonsterPlacement {
         monster27.setMinX(screen.getScaledTile()*21);
         monster27.setMinY(screen.getScaledTile()*33);
         monsters.add(monster27);
+
+        Monster monster28 = new Monster(screen);
+        monster28.setX(screen.getScaledTile()*31);
+        monster28.setY(screen.getScaledTile()*25);
+        monster28.setMaxX(screen.getScaledTile()*33);
+        monster28.setMaxY(screen.getScaledTile()*27);
+        monster28.setMinX(screen.getScaledTile()*28);
+        monster28.setMinY(screen.getScaledTile()*23);
+        monsters.add(monster28);
+
+        Monster monster29 = new Monster(screen);
+        monster29.setX(screen.getScaledTile()*18);
+        monster29.setY(screen.getScaledTile()*22);
+        monster29.setMaxX(screen.getScaledTile()*22);
+        monster29.setMaxY(screen.getScaledTile()*24);
+        monster29.setMinX(screen.getScaledTile()*14);
+        monster29.setMinY(screen.getScaledTile()*20);
+        monsters.add(monster29);
+
+        Monster monster30 = new Monster(screen);
+        monster30.setX(screen.getScaledTile()*26);
+        monster30.setY(screen.getScaledTile()*29);
+        monster30.setMaxX(screen.getScaledTile()*32);
+        monster30.setMaxY(screen.getScaledTile()*32);
+        monster30.setMinX(screen.getScaledTile()*20);
+        monster30.setMinY(screen.getScaledTile()*26);
+        monsters.add(monster30);
 
         return monsters;
     }

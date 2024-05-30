@@ -23,7 +23,7 @@ public class Monster extends Entity {
 
     public Monster(Screen screen) {
         this.screen = screen;
-        speed = 3;
+        speed = 2;
         bounds = new Rectangle();
         bounds.x = 3;
         bounds.y = 10;
