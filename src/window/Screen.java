@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Screen extends JPanel implements Runnable{
+public class Screen extends JPanel implements Runnable {
 
     private final int scaledTile = 48;
     private final Keyboard keyboard = new Keyboard();
@@ -70,7 +70,7 @@ public class Screen extends JPanel implements Runnable{
         }
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
         map.draw(g2D);

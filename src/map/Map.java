@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Class for creating a map
+ * Class for creating the map
  */
 public class Map {
 
@@ -62,6 +62,21 @@ public class Map {
         int playerY = player.getY();
         int playerScreenX = player.getCurrentX();
         int playerScreenY = player.getCurrentY();
+        int minCol = (playerX - playerScreenX) / tileSize - 1;
+        int maxCol = (playerX + playerScreenX) / tileSize + 1;
+        int minRow = (playerY - playerScreenY) / tileSize - 1;
+        int maxRow = (playerY + playerScreenY) / tileSize + 1;
+
+        for (int row = minRow; row <= maxRow; row++) {
+            for (int col = minCol; col <= maxCol; col++) {
+                int worldX = col * tileSize;
+                int worldY = row * tileSize;
+                int relativeX = worldX - playerX + playerScreenX;
+                int relativeY = worldY - playerY + playerScreenY;
+
+                g2D.drawImage(tiles.get(4).getImage(), relativeX, relativeY, tileSize, tileSize, null);
+            }
+        }
 
         for (int row = 0; row < map.length; row++) {
             for (int col = 0; col < map.length; col++) {
@@ -74,11 +89,11 @@ public class Map {
                 boolean isInViewVertically = false;
                 boolean isInViewHorizontally = false;
 
-                if (worldX + tileSize > playerX - playerScreenX && worldX - tileSize < playerX + playerScreenX){
+                if (worldX + tileSize > playerX - playerScreenX && worldX - tileSize < playerX + playerScreenX) {
                     isInViewHorizontally = true;
                 }
 
-                if (worldY + tileSize > playerY - playerScreenY && worldY - tileSize < playerY + playerScreenY){
+                if (worldY + tileSize > playerY - playerScreenY && worldY - tileSize < playerY + playerScreenY) {
                     isInViewVertically = true;
                 }
 
@@ -90,7 +105,7 @@ public class Map {
     }
 
     /**
-     * Method for loading the map
+     * Method for loading the map from the text file
      */
     public void load() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("map.txt");

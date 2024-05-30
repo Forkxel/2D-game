@@ -206,7 +206,7 @@ public class Collision {
         return hit;
     }
 
-    private void moveBounds(String direction, Entity entity, Rectangle bounds){
+    private void moveBounds(String direction, Entity entity, Rectangle bounds) {
         switch (direction) {
             case "up":
                 bounds.translate(0, -entity.getSpeed());
