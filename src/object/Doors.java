@@ -3,6 +3,9 @@ package object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
+/**
+ * Class for doors
+ */
 public class Doors extends Item {
 
     public Doors() {
@@ -10,6 +13,9 @@ public class Doors extends Item {
         collision = true;
     }
 
+    /**
+     * sets image based on the color of the doors
+     */
     @Override
     protected void setImageBasedOnColor() {
         try {
