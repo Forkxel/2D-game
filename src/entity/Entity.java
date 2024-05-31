@@ -66,4 +66,20 @@ public abstract class Entity {
     public int getMaxLife() {
         return maxLife;
     }
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setBounds(Rectangle bounds) {
+        this.bounds = bounds;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 }

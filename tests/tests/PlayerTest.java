@@ -2,7 +2,6 @@ package tests;
 
 import entity.Player;
 import object.*;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import window.Keyboard;
@@ -24,12 +23,8 @@ class PlayerTest {
     screen.setItems(items);
   }
 
-  @AfterEach
-  void tearDown() {
-  }
-
   @Test
-  void interactTestKey(){
+  void testInteractKey(){
     Key key = new Key();
     key.setName("key");
     items[0] = key;
@@ -41,7 +36,7 @@ class PlayerTest {
   }
 
   @Test
-  void interactTestDoors(){
+  void testInteractDoors(){
     Key redKey = new Key();
     redKey.setColor("red");
     player.getKeys().add(redKey);
@@ -57,7 +52,7 @@ class PlayerTest {
   }
 
   @Test
-  void interactTestChest(){
+  void testInteractChest(){
     Key yellowKey = new Key();
     yellowKey.setColor("yellow");
     player.getKeys().add(yellowKey);
@@ -72,7 +67,7 @@ class PlayerTest {
   }
 
   @Test
-  void interactTestPotion(){
+  void testInteractPotion(){
     Potion potion = new Potion();
     potion.setName("potion");
     items[3] = potion;
