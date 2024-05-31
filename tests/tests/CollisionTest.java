@@ -1,6 +1,5 @@
 package tests;
 
-import entity.Entity;
 import entity.Monster;
 import entity.Player;
 import map.Collision;
