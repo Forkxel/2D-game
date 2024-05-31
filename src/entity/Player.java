@@ -172,7 +172,7 @@ public class Player extends Entity{
      * Method for interacting with items
      * @param index is index from arraylist of items to find with which item player is interacting
      */
-    private void interact(int index) {
+    public void interact(int index) {
         String name;
         if (index >= 0 && index < screen.getItems().length) {
             name = screen.getItems()[index].getName();
@@ -301,5 +301,9 @@ public class Player extends Entity{
 
     public void setLost(boolean lost) {
         this.lost = lost;
+    }
+
+    public ArrayList<Item> getKeys() {
+        return keys;
     }
 }

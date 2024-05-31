@@ -25,7 +25,7 @@ public class Screen extends JPanel implements Runnable {
     private final Player player = new Player(this, keyboard);
     private final Collision collision = new Collision(this);
     private final Map map = new Map(this);
-    private final Item[] items;
+    private Item[] items;
     private final UI message = new UI(this);
     private final ArrayList<Monster> monsters;
 
@@ -137,5 +137,9 @@ public class Screen extends JPanel implements Runnable {
 
     public Item[] getItems() {
         return items;
+    }
+
+    public void setItems(Item[] items) {
+        this.items = items;
     }
 }
