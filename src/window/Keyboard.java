@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
  */
 public class Keyboard implements KeyListener {
 
-    private boolean pressedW, pressedS, pressedA, pressedD, pressedShift;
+    private boolean pressedW, pressedS, pressedA, pressedD, pressedUp, pressedDown, pressedLeft, pressedRight, pressedShift;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -36,6 +36,18 @@ public class Keyboard implements KeyListener {
         if (e.getKeyCode()  == KeyEvent.VK_SHIFT){
             pressedShift = true;
         }
+        if (e.getKeyCode()  == KeyEvent.VK_UP){
+            pressedUp = true;
+        }
+        if (e.getKeyCode()  == KeyEvent.VK_DOWN){
+            pressedDown = true;
+        }
+        if (e.getKeyCode()  == KeyEvent.VK_LEFT){
+            pressedLeft = true;
+        }
+        if (e.getKeyCode()  == KeyEvent.VK_RIGHT){
+            pressedRight = true;
+        }
     }
 
     /**
@@ -59,6 +71,18 @@ public class Keyboard implements KeyListener {
         if (e.getKeyCode()  == KeyEvent.VK_SHIFT){
             pressedShift = false;
         }
+        if (e.getKeyCode()  == KeyEvent.VK_UP){
+            pressedUp = false;
+        }
+        if (e.getKeyCode()  == KeyEvent.VK_DOWN){
+            pressedDown = false;
+        }
+        if (e.getKeyCode()  == KeyEvent.VK_LEFT){
+            pressedLeft = false;
+        }
+        if (e.getKeyCode()  == KeyEvent.VK_RIGHT){
+            pressedRight = false;
+        }
     }
 
     public boolean isPressedW() {
@@ -79,5 +103,21 @@ public class Keyboard implements KeyListener {
 
     public boolean isPressedShift() {
         return pressedShift;
+    }
+
+    public boolean isPressedUp() {
+        return pressedUp;
+    }
+
+    public boolean isPressedDown() {
+        return pressedDown;
+    }
+
+    public boolean isPressedLeft() {
+        return pressedLeft;
+    }
+
+    public boolean isPressedRight() {
+        return pressedRight;
     }
 }

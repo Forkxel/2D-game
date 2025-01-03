@@ -87,13 +87,13 @@ public class Player extends Entity{
      * Method for finding in which direction is player going
      */
     private void findDirection() {
-        if (keyboard.isPressedW()) {
+        if (keyboard.isPressedW() || keyboard.isPressedUp()) {
             direction = "up";
-        } else if (keyboard.isPressedS()) {
+        } else if (keyboard.isPressedS() || keyboard.isPressedDown()) {
             direction = "down";
-        } else if (keyboard.isPressedA()) {
+        } else if (keyboard.isPressedA() || keyboard.isPressedLeft()) {
             direction = "left";
-        } else if (keyboard.isPressedD()) {
+        } else if (keyboard.isPressedD() || keyboard.isPressedRight()) {
             direction = "right";
         } else {
             direction = "neutral";
